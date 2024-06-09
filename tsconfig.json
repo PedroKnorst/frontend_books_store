@@ -15,15 +15,16 @@
     "jsx": "react-jsx",
     "baseUrl": ".",
     "paths": {
-      "#/*": ["./src/*"],
-      "#components/*": ["./src/components/*"],
-      "#pages/*": ["./src/pages/*"],
-      "#hooks/*": ["./src/hooks/*"],
-      "#@types/*": ["./src/@types/*"],
-      "#assets/*": ["./src/assets/*"],
-      "#services/*": ["./src/services/*"],
-      "#routes/*": ["./src/routes/*"],
-      "#context/*": ["./src/context/*"]
+      "#/*": ["src/*"],
+      "#components/*": ["src/components/*"],
+      "#pages/*": ["src/pages/*"],
+      "#hooks/*": ["src/hooks/*"],
+      "#@types/*": ["src/@types/*"],
+      "#assets/*": ["src/assets/*"],
+      "#services/*": ["src/services/*"],
+      "#routes/*": ["src/routes/*"],
+      "#context/*": ["src/context/*"],
+      "#helpers/*": ["src/helpers/*"]
     },
 
     /* Linting */
