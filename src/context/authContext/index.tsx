@@ -1,5 +1,5 @@
 import { IAuthUser, IUser } from '#/@types/user';
-import { AuthUser } from '#/services/auth';
+import { authUser } from '#/services/user';
 import { ReactElement, createContext, useState } from 'react';
 
 type TUserContext = {
@@ -18,7 +18,7 @@ const UserStorage = ({ children }: { children: ReactElement }) => {
     let isSigned: boolean = false;
     setLoading(true);
 
-    await AuthUser(data)
+    await authUser(data)
       .then((res) => {
         const { user, token } = res.data;
 

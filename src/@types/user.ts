@@ -11,3 +11,11 @@ export interface IAuthUser {
   email: string;
   password: string;
 }
+
+export interface ICreateUser {
+  email: string;
+  password: string;
+  name: string;
+  phone: string;
+  profile: Profiles;
+}

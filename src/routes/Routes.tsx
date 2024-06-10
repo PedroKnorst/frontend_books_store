@@ -1,5 +1,5 @@
 import { ReactElement } from 'react';
-import { LoginLazy } from './lazyComponents';
+import { LoginLazy, SignUpLazy } from './lazyComponents';
 
 export interface IRoutes {
   path: string;
@@ -11,6 +11,11 @@ export const routes: IRoutes[] = [
   {
     path: '/',
     component: <LoginLazy />,
+    accessPermission: [],
+  },
+  {
+    path: '/cadastro',
+    component: <SignUpLazy />,
     accessPermission: [],
   },
 ];
