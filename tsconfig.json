@@ -17,6 +17,7 @@
     "paths": {
       "#/*": ["src/*"],
       "#components/*": ["src/components/*"],
+      "#templates/*": ["src/templates/*"],
       "#pages/*": ["src/pages/*"],
       "#hooks/*": ["src/hooks/*"],
       "#@types/*": ["src/@types/*"],

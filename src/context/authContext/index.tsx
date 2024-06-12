@@ -1,11 +1,13 @@
-import { IAuthUser, IUser } from '#/@types/user';
-import { authUser } from '#/services/user';
-import { ReactElement, createContext, useState } from 'react';
+import { IAuthUser, ICreateUser, IUser } from '#/@types/user';
+import { authUser, createUser } from '#/services/user';
+import { ReactElement, createContext, useEffect, useState } from 'react';
 
 type TUserContext = {
   user: IUser;
   signIn: (data: IAuthUser) => Promise<boolean>;
+  signUp: (data: ICreateUser) => Promise<boolean>;
   loading: boolean;
+  token: string;
 };
 
 export const UserContext = createContext<TUserContext>({} as TUserContext);
@@ -13,6 +15,12 @@ export const UserContext = createContext<TUserContext>({} as TUserContext);
 const UserStorage = ({ children }: { children: ReactElement }) => {
   const [loading, setLoading] = useState(false);
   const [user, setUser] = useState({} as IUser);
+  const [token, setToken] = useState<string>('');
+
+  useEffect(() => {
+    if (sessionStorage.getItem('user')) setUser(JSON.parse(sessionStorage.getItem('user') as string));
+    if (sessionStorage.getItem('token')) setToken(JSON.parse(sessionStorage.getItem('token') as string));
+  }, [user]);
 
   const signIn = async (data: IAuthUser) => {
     let isSigned: boolean = false;
@@ -25,11 +33,12 @@ const UserStorage = ({ children }: { children: ReactElement }) => {
         setUser(user);
 
         sessionStorage.setItem('token', token);
-        sessionStorage.setItem('user', user);
+        sessionStorage.setItem('user', JSON.stringify(user));
         isSigned = true;
       })
       .catch((error) => {
         console.log(error.message);
+        alert(error.message);
         isSigned = false;
       })
       .finally(() => {
@@ -39,7 +48,33 @@ const UserStorage = ({ children }: { children: ReactElement }) => {
     return isSigned;
   };
 
-  return <UserContext.Provider value={{ user, signIn, loading }}>{children}</UserContext.Provider>;
+  const signUp = async (data: ICreateUser) => {
+    let isSigned: boolean = false;
+    setLoading(true);
+
+    await createUser(data)
+      .then((res) => {
+        const { user, token } = res.data;
+
+        setUser(user);
+
+        sessionStorage.setItem('token', token);
+        sessionStorage.setItem('user', user);
+        isSigned = true;
+      })
+      .catch((error) => {
+        console.log(error.message);
+        alert(error.message);
+        isSigned = false;
+      })
+      .finally(() => {
+        setLoading(false);
+      });
+
+    return isSigned;
+  };
+
+  return <UserContext.Provider value={{ user, signIn, loading, signUp, token }}>{children}</UserContext.Provider>;
 };
 
 export { UserStorage };

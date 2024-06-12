@@ -1,5 +1,6 @@
 import { ReactElement } from 'react';
 import { LoginLazy, SignUpLazy } from './lazyComponents';
+import Home from '#/pages/Home';
 
 export interface IRoutes {
   path: string;
@@ -17,5 +18,10 @@ export const routes: IRoutes[] = [
     path: '/cadastro',
     component: <SignUpLazy />,
     accessPermission: [],
+  },
+  {
+    path: '/home',
+    component: <Home />,
+    accessPermission: ['SALESPERSON', 'CLIENT'],
   },
 ];

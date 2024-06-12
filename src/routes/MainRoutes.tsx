@@ -4,6 +4,7 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { IRoutes, routes } from './Routes';
 import { Profiles } from '#/@types/user';
 import { useAuthContext } from '#/context/authContext/useAuthContext';
+import DeniedPage from '#/helpers/DeniedPage';
 
 interface IAuthenticateRoute {
   route: IRoutes;
@@ -14,7 +15,13 @@ const AuthenticateRoute = ({ route, userProfile }: IAuthenticateRoute) => {
   const client = userProfile === 'CLIENT';
   const salesperson = userProfile === 'SALESPERSON';
 
-  return route.component;
+  if (client) {
+    return route.component;
+  } else if (salesperson) {
+    return route.component;
+  }
+
+  return <DeniedPage />;
 };
 
 export const MainRoutes = () => {

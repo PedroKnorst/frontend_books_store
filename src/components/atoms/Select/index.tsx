@@ -1,16 +1,21 @@
-import { InputHTMLAttributes, useState } from 'react';
-import { Control, Controller, FieldErrors, FieldValues } from 'react-hook-form';
 import clsx from 'clsx';
+import { SelectHTMLAttributes, useState } from 'react';
+import { Control, Controller, FieldErrors, FieldValues } from 'react-hook-form';
 
-interface Props extends InputHTMLAttributes<HTMLInputElement> {
-  name: string;
+export interface ISelectOption {
   label: string;
-  control: Control<any>;
-  errors: FieldErrors<FieldValues>;
-  type?: string;
+  value: string;
 }
 
-const Input = ({ label, name, control, errors, type = 'text', ...props }: Props) => {
+interface Props extends SelectHTMLAttributes<HTMLSelectElement> {
+  options: ISelectOption[];
+  control: Control<any>;
+  errors: FieldErrors<FieldValues>;
+  name: string;
+  label: string;
+}
+
+const Select = ({ options, name, control, label, errors, ...props }: Props) => {
   const [moveLabel, setMoveLabel] = useState(false);
   const errorMessage = errors?.[name]?.message as string;
 
@@ -32,17 +37,23 @@ const Input = ({ label, name, control, errors, type = 'text', ...props }: Props)
           >
             {label}
           </label>
-          <input
-            className="border-[#133052] border outline-none rounded-md max-w-60 min-w-32 p-2"
+          <select
+            {...props}
             {...field}
+            className={clsx('border-[#133052] border outline-none rounded-md max-w-60 min-w-32 p-2', props.className)}
             onFocus={onFocusLabel}
             onBlur={() => {
               field.onBlur();
               setMoveLabel(false);
             }}
-            type={type}
-            {...props}
-          />
+          >
+            <option disabled></option>
+            {options.map((option) => (
+              <option value={option.value} key={option.value}>
+                {option.label}
+              </option>
+            ))}
+          </select>
           {errorMessage && <p className="text-red-700">{errorMessage}</p>}
         </div>
       )}
@@ -50,4 +61,4 @@ const Input = ({ label, name, control, errors, type = 'text', ...props }: Props)
   );
 };
 
-export default Input;
+export default Select;

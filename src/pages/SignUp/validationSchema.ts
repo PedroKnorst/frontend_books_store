@@ -7,8 +7,12 @@ export const signUpValidationSchema = z
     password: z.string().min(1, 'A senha é obrigatório!'),
     confirmationPassword: z.string().min(1, 'Confirme sua senha!'),
     phone: z.string().optional(),
+    profile: z.string().min(1, 'O perfil é obrigatório!'),
   })
-  .refine((data) => data.password === data.confirmationPassword, { message: 'As senhas não coincidem!' });
+  .refine((data) => data.password === data.confirmationPassword, {
+    message: 'As senhas não coincidem!',
+    path: ['confirmationPassword'],
+  });
 
 export const signUpValidationDefaultValues = {
   name: '',
@@ -16,4 +20,5 @@ export const signUpValidationDefaultValues = {
   password: '',
   confirmationPassword: '',
   phone: '',
+  profile: '',
 };

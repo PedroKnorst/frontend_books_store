@@ -16,6 +16,6 @@ export interface ICreateUser {
   email: string;
   password: string;
   name: string;
-  phone: string;
+  phone?: string;
   profile: Profiles;
 }
