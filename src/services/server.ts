@@ -2,9 +2,9 @@ import axios from 'axios';
 
 const baseURL = process.env.API_URL;
 
-const server = axios.create({ baseURL });
+const api = axios.create({ baseURL });
 
-server.interceptors.request.use((config) => {
+api.interceptors.request.use((config) => {
   const token = sessionStorage.getItem('token');
 
   if (token) {
@@ -14,4 +14,4 @@ server.interceptors.request.use((config) => {
   return config;
 });
 
-export { server };
+export { api };

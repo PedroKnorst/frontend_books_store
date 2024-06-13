@@ -1,11 +1,13 @@
 import { ReactElement } from 'react';
 import { LoginLazy, SignUpLazy } from './lazyComponents';
 import Home from '#/pages/Home';
+import { Profiles } from '#/@types/user';
+import ComicBooksPage from '#/pages/ComicBooksPage';
 
 export interface IRoutes {
   path: string;
   component: ReactElement;
-  accessPermission: string[];
+  accessPermission: Profiles[];
 }
 
 export const routes: IRoutes[] = [
@@ -22,6 +24,11 @@ export const routes: IRoutes[] = [
   {
     path: '/home',
     component: <Home />,
+    accessPermission: ['SALESPERSON', 'CLIENT'],
+  },
+  {
+    path: '/livros-marvel',
+    component: <ComicBooksPage />,
     accessPermission: ['SALESPERSON', 'CLIENT'],
   },
 ];

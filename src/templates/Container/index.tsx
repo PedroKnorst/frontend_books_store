@@ -3,7 +3,7 @@ import { ReactElement } from 'react';
 
 const Container = ({ children }: { children: ReactElement }) => {
   return (
-    <main className="bg-amber-300">
+    <main className="p-10">
       <Header />
       {children}
     </main>

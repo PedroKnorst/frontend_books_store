@@ -3,8 +3,9 @@ export type Profiles = 'SALESPERSON' | 'CLIENT';
 export interface IUser {
   name: string;
   email: string;
-  profile: Profiles;
   token: string;
+  salespersonId?: string;
+  clientId?: string;
 }
 
 export interface IAuthUser {

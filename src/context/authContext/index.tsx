@@ -19,8 +19,8 @@ const UserStorage = ({ children }: { children: ReactElement }) => {
 
   useEffect(() => {
     if (sessionStorage.getItem('user')) setUser(JSON.parse(sessionStorage.getItem('user') as string));
-    if (sessionStorage.getItem('token')) setToken(JSON.parse(sessionStorage.getItem('token') as string));
-  }, [user]);
+    if (sessionStorage.getItem('token')) setToken(sessionStorage.getItem('token') as string);
+  }, []);
 
   const signIn = async (data: IAuthUser) => {
     let isSigned: boolean = false;
@@ -59,7 +59,7 @@ const UserStorage = ({ children }: { children: ReactElement }) => {
         setUser(user);
 
         sessionStorage.setItem('token', token);
-        sessionStorage.setItem('user', user);
+        sessionStorage.setItem('user', JSON.stringify(user));
         isSigned = true;
       })
       .catch((error) => {

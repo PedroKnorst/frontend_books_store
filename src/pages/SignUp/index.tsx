@@ -6,6 +6,7 @@ import Input from '#/components/atoms/Input';
 import Select from '#/components/atoms/Select';
 import Button from '#/components/atoms/Button';
 import useFormControlValidation from '#/hooks/useFormControlValidation';
+import AuthContainer from '#/templates/AuthContainer';
 
 type SignUpValidationSchemaType = z.infer<typeof signUpValidationSchema>;
 
@@ -32,15 +33,17 @@ const SignUp = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="bg-yellow-500 rounded-lg py-8 px-4 grid gap-6">
-      <Input {...inputUseFormHandler('name')} label="Nome" type="name" />
-      <Input {...inputUseFormHandler('email')} label="Email" type="email" />
-      <Input {...inputUseFormHandler('phone')} label="Telefone" type="phone" />
-      <Select {...inputUseFormHandler('profile')} options={selectOptions} label="Perfil" />
-      <Input {...inputUseFormHandler('password')} label="Senha" />
-      <Input {...inputUseFormHandler('confirmationPassword')} label="Confirmar senha" />
-      <Button loading={loading}>Cadastre-se</Button>
-    </form>
+    <AuthContainer>
+      <form onSubmit={handleSubmit(onSubmit)} className="bg-yellow-500 rounded-lg py-8 px-4 grid gap-6">
+        <Input {...inputUseFormHandler('name')} label="Nome" type="name" />
+        <Input {...inputUseFormHandler('email')} label="Email" type="email" />
+        <Input {...inputUseFormHandler('phone')} label="Telefone" type="phone" />
+        <Select {...inputUseFormHandler('profile')} options={selectOptions} label="Perfil" />
+        <Input {...inputUseFormHandler('password')} label="Senha" />
+        <Input {...inputUseFormHandler('confirmationPassword')} label="Confirmar senha" />
+        <Button loading={loading}>Cadastre-se</Button>
+      </form>
+    </AuthContainer>
   );
 };
 

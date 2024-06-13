@@ -2,22 +2,23 @@ import LoadingPage from '#/helpers/LoadingPage';
 import { Suspense } from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { IRoutes, routes } from './Routes';
-import { Profiles } from '#/@types/user';
+import { IUser, Profiles } from '#/@types/user';
 import { useAuthContext } from '#/context/authContext/useAuthContext';
 import DeniedPage from '#/helpers/DeniedPage';
 
 interface IAuthenticateRoute {
   route: IRoutes;
-  userProfile: Profiles;
+  user: IUser;
+  accessPermission: Profiles[];
 }
 
-const AuthenticateRoute = ({ route, userProfile }: IAuthenticateRoute) => {
-  const client = userProfile === 'CLIENT';
-  const salesperson = userProfile === 'SALESPERSON';
+const AuthenticateRoute = ({ route, user, accessPermission }: IAuthenticateRoute) => {
+  const client = user.clientId;
+  const salesperson = user.salespersonId;
 
-  if (client) {
+  if (accessPermission.includes('CLIENT') && client) {
     return route.component;
-  } else if (salesperson) {
+  } else if (accessPermission.includes('SALESPERSON') && salesperson) {
     return route.component;
   }
 
@@ -38,7 +39,7 @@ export const MainRoutes = () => {
                 route.accessPermission.length === 0 ? (
                   route.component
                 ) : (
-                  <AuthenticateRoute route={route} userProfile={user.profile} />
+                  <AuthenticateRoute accessPermission={route.accessPermission} route={route} user={user} />
                 )
               }
               path={route.path}
