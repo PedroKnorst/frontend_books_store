@@ -10,8 +10,6 @@ const ComicBooksPage = () => {
   useEffect(() => {
     getMarvelComicBooksWithFilter()
       .then((res) => {
-        console.log({ res });
-
         setMarvelBooks(res.data.books);
       })
       .catch((error) => console.log(error));

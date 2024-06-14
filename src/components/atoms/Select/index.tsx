@@ -28,10 +28,10 @@ const Select = ({ options, name, control, label, errors, ...props }: Props) => {
       control={control}
       name={name}
       render={({ field }) => (
-        <div className="relative grid gap-2">
+        <div className="relative grid mt-4 gap-1 text-black">
           <label
-            className={clsx('absolute top-2 transition left-2', {
-              '-translate-y-8 -translate-x-2': moveLabel || field.value,
+            className={clsx('absolute top-2 bg-white px-1 transition left-2', {
+              '-translate-y-6 scale-75 -translate-x-4': moveLabel || field.value,
             })}
             htmlFor={name}
           >
@@ -40,7 +40,7 @@ const Select = ({ options, name, control, label, errors, ...props }: Props) => {
           <select
             {...props}
             {...field}
-            className={clsx('border-[#133052] border outline-none rounded-md max-w-60 min-w-32 p-2', props.className)}
+            className={clsx('border-b-[#133052] border border-white outline-none p-2', props.className)}
             onFocus={onFocusLabel}
             onBlur={() => {
               field.onBlur();
@@ -54,7 +54,7 @@ const Select = ({ options, name, control, label, errors, ...props }: Props) => {
               </option>
             ))}
           </select>
-          {errorMessage && <p className="text-red-700">{errorMessage}</p>}
+          <p className="text-red-700 text-[12px] h-3">{errorMessage}</p>
         </div>
       )}
     />

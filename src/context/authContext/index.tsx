@@ -6,6 +6,7 @@ type TUserContext = {
   user: IUser;
   signIn: (data: IAuthUser) => Promise<boolean>;
   signUp: (data: ICreateUser) => Promise<boolean>;
+  logOut: () => void;
   loading: boolean;
   token: string;
 };
@@ -74,7 +75,14 @@ const UserStorage = ({ children }: { children: ReactElement }) => {
     return isSigned;
   };
 
-  return <UserContext.Provider value={{ user, signIn, loading, signUp, token }}>{children}</UserContext.Provider>;
+  const logOut = () => {
+    sessionStorage.removeItem('token');
+    sessionStorage.removeItem('user');
+  };
+
+  return (
+    <UserContext.Provider value={{ user, signIn, loading, signUp, token, logOut }}>{children}</UserContext.Provider>
+  );
 };
 
 export { UserStorage };

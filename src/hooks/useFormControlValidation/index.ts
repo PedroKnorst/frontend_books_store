@@ -4,7 +4,7 @@ import { z } from 'zod';
 
 interface Props {
   validationSchema: any;
-  defaultValues: Object;
+  defaultValues?: Object;
 }
 
 const useFormControlValidation = ({ validationSchema, defaultValues }: Props) => {
@@ -16,7 +16,7 @@ const useFormControlValidation = ({ validationSchema, defaultValues }: Props) =>
   } = useForm<ValidationSchemaType>({
     mode: 'all',
     resolver: zodResolver(validationSchema),
-    defaultValues: defaultValues,
+    defaultValues,
   });
   const inputUseFormHandler = (name: keyof ValidationSchemaType) => ({
     control,

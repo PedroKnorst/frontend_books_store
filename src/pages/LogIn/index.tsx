@@ -31,11 +31,11 @@ const Login = () => {
       <form onSubmit={handleSubmit(onSubmit)} className="bg-yellow-500 rounded-lg py-8 px-4 grid gap-6">
         <Input {...inputUseFormHandler('email')} label="Email" type="email" />
         <Input {...inputUseFormHandler('password')} label="Senha" />
-        <div className="flex gap-2 items-center">
-          <NavLink to={'/cadastro'} className="text-red-600 hover:text-red-500 transition font-[700]">
+        <div className="flex flex-col gap-2">
+          <Button loading={loading}>Entrar</Button>
+          <NavLink to={'/cadastro'} className="text-red-600 text-center hover:text-red-500 transition font-[700]">
             Cadastre-se
           </NavLink>
-          <Button loading={loading}>Entrar</Button>
         </div>
       </form>
     </AuthContainer>
