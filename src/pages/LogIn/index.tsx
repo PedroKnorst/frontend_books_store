@@ -28,9 +28,9 @@ const Login = () => {
 
   return (
     <AuthContainer>
-      <form onSubmit={handleSubmit(onSubmit)} className="bg-yellow-500 rounded-lg py-8 px-4 grid gap-6">
-        <Input {...inputUseFormHandler('email')} label="Email" type="email" />
-        <Input {...inputUseFormHandler('password')} label="Senha" />
+      <form onSubmit={handleSubmit(onSubmit)} className="bg-yellow-500 rounded-lg py-8 min-w-[400px] px-4 grid gap-6">
+        <Input className="text-white border-b-white" {...inputUseFormHandler('email')} label="Email" type="email" />
+        <Input className="text-white border-b-white" {...inputUseFormHandler('password')} label="Senha" />
         <div className="flex flex-col gap-2">
           <Button loading={loading}>Entrar</Button>
           <NavLink to={'/cadastro'} className="text-red-600 text-center hover:text-red-500 transition font-[700]">

@@ -4,7 +4,7 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { IRoutes, routes } from './Routes';
 import { IUser, Profiles } from '#/@types/user';
 import { useAuthContext } from '#/context/authContext/useAuthContext';
-import DeniedPage from '#/helpers/DeniedPage';
+import NotFoundPage from '#/helpers/NotFoundPage';
 
 interface IAuthenticateRoute {
   route: IRoutes;
@@ -22,7 +22,7 @@ const AuthenticateRoute = ({ route, user, accessPermission }: IAuthenticateRoute
     return route.component;
   }
 
-  return <DeniedPage />;
+  return <NotFoundPage />;
 };
 
 export const MainRoutes = () => {

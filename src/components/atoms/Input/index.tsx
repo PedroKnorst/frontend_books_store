@@ -12,7 +12,7 @@ interface Props extends InputHTMLAttributes<HTMLInputElement> {
   type?: string;
 }
 
-const Input = ({ label, name, control, errors, type = 'text', mask, ...props }: Props) => {
+const Input = ({ label, name, control, errors, type = 'text', mask, className, ...props }: Props) => {
   const [moveLabel, setMoveLabel] = useState(false);
   const errorMessage = errors?.[name]?.message as string;
 
@@ -27,15 +27,19 @@ const Input = ({ label, name, control, errors, type = 'text', mask, ...props }: 
       render={({ field }) => (
         <div className="relative mt-4 grid gap-1 text-black">
           <label
-            className={clsx('absolute top-2 bg-white px-1 transition left-2', {
-              '-translate-y-6 scale-75 -translate-x-4': moveLabel || field.value,
-            })}
+            className={clsx(
+              'absolute top-2 bg-transparent px-1 transition left-2',
+              {
+                '-translate-y-6 scale-75 -translate-x-4': moveLabel || field.value,
+              },
+              className,
+            )}
             htmlFor={name}
           >
             {label}
           </label>
           <input
-            className="border-b-[#133052] border border-white outline-none p-2"
+            className={clsx('border-b-[#133052] bg-transparent border border-transparent outline-none p-2', className)}
             {...field}
             onChange={(e) => {
               if (type === 'number') {

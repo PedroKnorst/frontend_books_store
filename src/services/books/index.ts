@@ -1,10 +1,9 @@
 import { ICreateBook, IGetBooksWithFilterParams } from '#/@types/books';
 import { api } from '../server';
 
-export const getMarvelComicBooksWithFilter = async () => {
-  // colocar parametros
+export const getMarvelComicBooksWithFilter = async (params: { page: number; size: number }) => {
   try {
-    return api.get('/book/marvelBooks', { params: { page: 1, size: 8 } });
+    return api.get('/book/marvelBooks', { params });
   } catch (error) {
     return Promise.reject(error);
   }

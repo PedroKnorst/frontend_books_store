@@ -15,7 +15,7 @@ interface Props extends SelectHTMLAttributes<HTMLSelectElement> {
   label: string;
 }
 
-const Select = ({ options, name, control, label, errors, ...props }: Props) => {
+const Select = ({ options, name, control, label, errors, className, ...props }: Props) => {
   const [moveLabel, setMoveLabel] = useState(false);
   const errorMessage = errors?.[name]?.message as string;
 
@@ -30,9 +30,13 @@ const Select = ({ options, name, control, label, errors, ...props }: Props) => {
       render={({ field }) => (
         <div className="relative grid mt-4 gap-1 text-black">
           <label
-            className={clsx('absolute top-2 bg-white px-1 transition left-2', {
-              '-translate-y-6 scale-75 -translate-x-4': moveLabel || field.value,
-            })}
+            className={clsx(
+              'absolute top-2 bg-transparent px-1 transition left-2',
+              {
+                '-translate-y-6 scale-75 -translate-x-4': moveLabel || field.value,
+              },
+              className,
+            )}
             htmlFor={name}
           >
             {label}
@@ -40,7 +44,7 @@ const Select = ({ options, name, control, label, errors, ...props }: Props) => {
           <select
             {...props}
             {...field}
-            className={clsx('border-b-[#133052] border border-white outline-none p-2', props.className)}
+            className={clsx('border-b-[#133052] bg-transparent border border-transparent outline-none p-2', className)}
             onFocus={onFocusLabel}
             onBlur={() => {
               field.onBlur();
@@ -49,7 +53,7 @@ const Select = ({ options, name, control, label, errors, ...props }: Props) => {
           >
             <option disabled></option>
             {options.map((option) => (
-              <option value={option.value} key={option.value}>
+              <option className="text-black" value={option.value} key={option.value}>
                 {option.label}
               </option>
             ))}

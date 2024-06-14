@@ -5,12 +5,17 @@ const navList = [
   {
     title: 'Home',
     path: '/home',
-    permission: ['CLIENT', 'SALESPERSON'],
+    permission: ['CLIENT'],
   },
   {
     title: 'Livros Marvel',
     path: '/livros-marvel',
     permission: ['CLIENT', 'SALESPERSON'],
+  },
+  {
+    title: 'Meus Livros',
+    path: '/meus-livros',
+    permission: ['SALESPERSON'],
   },
   {
     title: 'Minhas vendas',
@@ -32,7 +37,7 @@ const Header = () => {
 
   return (
     <header className="w-full justify-between flex p-8 bg-yellow-500 rounded-lg">
-      <h2 className='min-w-[100px]'>Loja de livros</h2>
+      <h2 className="min-w-[100px]">Loja de livros</h2>
       <ul className="flex gap-10 w-full justify-center">
         {navList.map(
           (option) =>

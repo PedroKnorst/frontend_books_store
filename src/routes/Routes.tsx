@@ -3,8 +3,10 @@ import { LoginLazy, SignUpLazy } from './lazyComponents';
 import Home from '#/pages/Home';
 import { Profiles } from '#/@types/user';
 import ComicBooksPage from '#/pages/ComicBooksPage';
-import MySales from '#/pages/MySales';
+import MyBooks from '#/pages/MyBooks';
 import { BooksStorage } from '#/context/booksContext';
+import MySales from '#/pages/MySales';
+import MyCart from '#/pages/MyCart';
 
 export interface IRoutes {
   path: string;
@@ -25,13 +27,26 @@ export const routes: IRoutes[] = [
   },
   {
     path: '/home',
-    component: <Home />,
-    accessPermission: ['SALESPERSON', 'CLIENT'],
+    component: (
+      <BooksStorage>
+        <Home />
+      </BooksStorage>
+    ),
+    accessPermission: ['CLIENT'],
   },
   {
     path: '/livros-marvel',
     component: <ComicBooksPage />,
     accessPermission: ['SALESPERSON', 'CLIENT'],
+  },
+  {
+    path: '/meus-livros',
+    component: (
+      <BooksStorage>
+        <MyBooks />
+      </BooksStorage>
+    ),
+    accessPermission: ['SALESPERSON'],
   },
   {
     path: '/minhas-vendas',
@@ -41,5 +56,14 @@ export const routes: IRoutes[] = [
       </BooksStorage>
     ),
     accessPermission: ['SALESPERSON'],
+  },
+  {
+    path: '/meu-carrinho',
+    component: (
+      <BooksStorage>
+        <MyCart />
+      </BooksStorage>
+    ),
+    accessPermission: ['CLIENT'],
   },
 ];

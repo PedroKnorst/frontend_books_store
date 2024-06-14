@@ -39,12 +39,21 @@ const SignUp = () => {
   return (
     <AuthContainer>
       <form onSubmit={handleSubmit(onSubmit)} className="bg-yellow-500 rounded-lg py-8 px-4 grid grid-cols-2 gap-6">
-        <Input {...inputUseFormHandler('name')} label="Nome" type="name" />
-        <Input {...inputUseFormHandler('email')} label="Email" type="email" />
-        <Input {...inputUseFormHandler('phone')} label="Telefone" type="phone" />
-        <Select {...inputUseFormHandler('profile')} options={selectOptions} label="Perfil" />
-        <Input {...inputUseFormHandler('password')} label="Senha" />
-        <Input {...inputUseFormHandler('confirmationPassword')} label="Confirmar senha" />
+        <Input className="text-white border-b-white" {...inputUseFormHandler('name')} label="Nome" type="name" />
+        <Input className="text-white border-b-white" {...inputUseFormHandler('email')} label="Email" type="email" />
+        <Input className="text-white border-b-white" {...inputUseFormHandler('phone')} label="Telefone" type="phone" />
+        <Select
+          className="text-white border-b-white"
+          {...inputUseFormHandler('profile')}
+          options={selectOptions}
+          label="Perfil"
+        />
+        <Input className="text-white border-b-white" {...inputUseFormHandler('password')} label="Senha" />
+        <Input
+          className="text-white border-b-white"
+          {...inputUseFormHandler('confirmationPassword')}
+          label="Confirmar senha"
+        />
         <div className="flex flex-col col-span-2 gap-2">
           <Button loading={loading}>Cadastrar</Button>
           <NavLink to={'/'} className="text-red-600 text-center hover:text-red-500 transition font-[700]">
