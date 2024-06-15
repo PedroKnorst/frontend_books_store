@@ -1,6 +1,8 @@
 import BookCard from '#/components/atoms/BookCard';
 import Loading from '#/components/atoms/Loading';
+import Modal from '#/components/atoms/Modal';
 import BooksPagination from '#/components/molecules/BooksPagination';
+import ViewBookModal from '#/components/molecules/ViewBookModal';
 import { useBooksContext } from '#/context/booksContext/useBooksContext';
 import Container from '#/templates/Container';
 import { useEffect } from 'react';
@@ -19,7 +21,15 @@ const Home = () => {
           <BooksPagination />
         </div>
         <div className="grid grid-cols-2 gap-6">
-          {loading ? <Loading /> : books.map((book) => <BookCard {...book} key={book.id} />)}
+          {loading ? (
+            <Loading />
+          ) : (
+            books.map((book) => (
+              <Modal key={book.id} triggerButton={<BookCard className="text-left" {...book} />}>
+                <ViewBookModal bookId={book.id} />
+              </Modal>
+            ))
+          )}
         </div>
       </div>
     </Container>

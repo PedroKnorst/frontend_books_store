@@ -1,5 +1,5 @@
 import { IAuthUser, ICreateUser } from '#/@types/user';
-import { api } from '../server';
+import { api } from './server';
 
 export const authUser = async (data: IAuthUser) => {
   try {

@@ -2,7 +2,7 @@ import { IMarvelComicBook } from '#/@types/books';
 import ComicBookCard from '#/components/atoms/ComicBookCard';
 import Loading from '#/components/atoms/Loading';
 import BooksPagination from '#/components/molecules/BooksPagination';
-import { getMarvelComicBooksWithFilter } from '#/services/books';
+import { getMarvelComicBooksWithFilter } from '#/services/books/books';
 import Container from '#/templates/Container';
 import { useEffect, useState } from 'react';
 

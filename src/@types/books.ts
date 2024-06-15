@@ -28,6 +28,7 @@ export interface IBook {
   description: string;
   price: number;
   storage: number;
+  category: BookCategory;
   salespersonId: string;
   Salesperson: ISalesperson;
 }

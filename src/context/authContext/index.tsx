@@ -1,5 +1,5 @@
 import { IAuthUser, ICreateUser, IUser } from '#/@types/user';
-import { authUser, createUser } from '#/services/user';
+import { authUser, createUser } from '#/services/user/user';
 import { ReactElement, createContext, useEffect, useState } from 'react';
 
 type TUserContext = {

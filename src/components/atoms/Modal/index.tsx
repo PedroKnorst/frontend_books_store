@@ -9,7 +9,7 @@ interface InputProps {
   open?: boolean;
 }
 
-const Modal = ({ children, triggerButton: triggerButton, confirmButton, open }: InputProps) => {
+const Modal = ({ children, triggerButton, confirmButton, open }: InputProps) => {
   return (
     <AlertDialog.Root open={open}>
       <AlertDialog.Trigger>{triggerButton}</AlertDialog.Trigger>

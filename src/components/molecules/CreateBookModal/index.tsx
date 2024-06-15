@@ -3,7 +3,7 @@ import { z } from 'zod';
 import { createBookModalDefaultValues, createBookModalSchema } from './validationSchema';
 import Input from '#/components/atoms/Input';
 import { useAuthContext } from '#/context/authContext/useAuthContext';
-import { createBook } from '#/services/books';
+import { createBook } from '#/services/books/books';
 import { useState } from 'react';
 import Button from '#/components/atoms/Button';
 import Select from '#/components/atoms/Select';

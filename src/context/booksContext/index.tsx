@@ -1,5 +1,5 @@
 import { IBook } from '#/@types/books';
-import { getBooksWithFilter } from '#/services/books';
+import { getBooksWithFilter } from '#/services/books/books';
 import { ReactElement, createContext, useEffect, useState } from 'react';
 
 type TBooksContext = {
