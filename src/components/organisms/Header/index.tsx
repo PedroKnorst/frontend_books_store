@@ -1,4 +1,7 @@
 import { useAuthContext } from '#/context/authContext/useAuthContext';
+import { useCartContext } from '#/context/cartContext/useCartContext';
+import { ShoppingCart } from '@mui/icons-material';
+import { useEffect } from 'react';
 import { NavLink } from 'react-router-dom';
 
 const navList = [
@@ -31,6 +34,11 @@ const navList = [
 
 const Header = () => {
   const { user, logOut } = useAuthContext();
+  const { cart, getCurrentCart } = useCartContext();
+
+  useEffect(() => {
+    getCurrentCart();
+  }, []);
 
   const client = user.clientId;
   const salesperson = user.salespersonId;
@@ -43,8 +51,16 @@ const Header = () => {
           (option) =>
             ((option.permission.includes('CLIENT') && client) ||
               (option.permission.includes('SALESPERSON') && salesperson)) && (
-              <li key={option.path} className="cursor-pointer hover:font-[700] text-black">
-                <NavLink to={option.path}>{option.title}</NavLink>
+              <li key={option.path} className="cursor-pointer hover:font-[700] text-black relative">
+                <NavLink to={option.path}>
+                  {option.title === 'Carrinho' && cart.BooksCart && (
+                    <span className="p-1 text-[8pt] flex items-center rounded absolute -top-5 -right-9 bg-[#dc143c] text-white">
+                      <ShoppingCart className="max-h-[16px] max-w-[16px]" />
+                      {cart.BooksCart.length}
+                    </span>
+                  )}
+                  {option.title}
+                </NavLink>
               </li>
             ),
         )}

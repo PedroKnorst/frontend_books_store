@@ -1,5 +1,6 @@
 import { BookCategory, IBook } from '#/@types/books';
 import Button from '#/components/atoms/Button';
+import { useCartContext } from '#/context/cartContext/useCartContext';
 import { findBookById } from '#/services/books';
 import { inputMasks } from '#/utils/inputMasks';
 import AddShoppingCart from '@mui/icons-material/AddShoppingCart';
@@ -11,19 +12,25 @@ interface Props {
 
 const ViewBookModal = ({ bookId }: Props) => {
   const [book, setBook] = useState<IBook>();
-  const [loading, setLoading] = useState(false);
+  const [loadingBook, setLoadingBook] = useState(false);
+
+  const { manageBookToCart, loadingManageBookToCart } = useCartContext();
 
   useEffect(() => {
     getBook();
   }, [bookId]);
 
   const getBook = async () => {
+    setLoadingBook(true);
     await findBookById(bookId)
       .then((res) => {
         setBook(res.data);
       })
       .catch((error) => {
         console.log(error);
+      })
+      .finally(() => {
+        setLoadingBook(false);
       });
   };
 
@@ -49,7 +56,12 @@ const ViewBookModal = ({ bookId }: Props) => {
       <p>Preço: {book?.price ? inputMasks(book?.price, 'MONEY') : 'R$0,00'}</p>
       <p>Quantidade em estoque: {book?.storage}</p>
       <div className="w-full mt-2">
-        <Button className="w-full" icon={<AddShoppingCart />}>
+        <Button
+          className="w-full"
+          loading={loadingManageBookToCart}
+          onClick={() => manageBookToCart(bookId)}
+          icon={<AddShoppingCart />}
+        >
           Colocar no carrinho
         </Button>
       </div>

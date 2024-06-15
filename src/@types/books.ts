@@ -1,3 +1,4 @@
+import { ICart } from './cart';
 import { ISalesperson } from './salesperson';
 
 export enum BookCategory {
@@ -47,4 +48,14 @@ export interface ICreateBook {
 export interface IGetBooksWithFilterParams {
   page: number;
   size: number;
+}
+
+export interface IBookCart {
+  id: string;
+  quantity: string;
+  totalPrice: number;
+  bookId: string;
+  Book: IBook;
+  cartId: string;
+  Cart: ICart;
 }

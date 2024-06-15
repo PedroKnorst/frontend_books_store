@@ -1,5 +1,5 @@
 import { IAuthUser, ICreateUser, IUser } from '#/@types/user';
-import { authUser, createUser } from '#/services/user/user';
+import { authUser, createUser } from '#/services/user';
 import { ReactElement, createContext, useEffect, useState } from 'react';
 
 type TUserContext = {
@@ -64,7 +64,7 @@ const UserStorage = ({ children }: { children: ReactElement }) => {
         isSigned = true;
       })
       .catch((error) => {
-        console.log(error.message);
+        console.error(error);
         alert(error.message);
         isSigned = false;
       })
@@ -81,7 +81,9 @@ const UserStorage = ({ children }: { children: ReactElement }) => {
   };
 
   return (
-    <UserContext.Provider value={{ user, signIn, loading, signUp, token, logOut }}>{children}</UserContext.Provider>
+    <UserContext.Provider value={{ user, signIn, loading, signUp, token, logOut }}>
+      {children}
+    </UserContext.Provider>
   );
 };
 

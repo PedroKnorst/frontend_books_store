@@ -1,5 +1,5 @@
 import { IBook } from '#/@types/books';
-import { getBooksWithFilter } from '#/services/books/books';
+import { getBooksWithFilter } from '#/services/books';
 import { ReactElement, createContext, useEffect, useState } from 'react';
 
 type TBooksContext = {
@@ -26,10 +26,14 @@ const BooksStorage = ({ children }: { children: ReactElement }) => {
     getBooks();
   }, [page, size]);
 
+  useEffect(() => {
+    setPage(total > 0 ? 1 : 0);
+  }, [books])
+
   const getBooks = async () => {
     setLoading(true);
 
-    await getBooksWithFilter({ page, size })
+    await getBooksWithFilter({ page: total === 0 ? 1 : page, size })
       .then((res) => {
         setBooks(res.data.books);
         setTotal(res.data.total);
@@ -43,7 +47,18 @@ const BooksStorage = ({ children }: { children: ReactElement }) => {
   };
 
   return (
-    <BooksContext.Provider value={{ books, loading, setBooks, setPage, setSize, total, page, size }}>
+    <BooksContext.Provider
+      value={{
+        books,
+        loading,
+        setBooks,
+        setPage,
+        setSize,
+        total,
+        page,
+        size,
+      }}
+    >
       {children}
     </BooksContext.Provider>
   );

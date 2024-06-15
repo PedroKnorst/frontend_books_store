@@ -28,7 +28,7 @@ const Input = ({ label, name, control, errors, type = 'text', mask, className, .
         <div className="relative mt-4 grid gap-1 text-black">
           <label
             className={clsx(
-              'absolute top-2 bg-transparent px-1 transition left-2',
+              'absolute top-2 px-1 transition left-2',
               {
                 '-translate-y-6 scale-75 -translate-x-4': moveLabel || field.value,
               },
@@ -39,7 +39,7 @@ const Input = ({ label, name, control, errors, type = 'text', mask, className, .
             {label}
           </label>
           <input
-            className={clsx('border-b-[#133052] bg-transparent border border-transparent outline-none p-2', className)}
+            className={clsx('border-b-[#133052] border border-transparent outline-none p-2', className)}
             {...field}
             onChange={(e) => {
               if (type === 'number') {
@@ -49,7 +49,7 @@ const Input = ({ label, name, control, errors, type = 'text', mask, className, .
               }
               if (mask) field.onChange(inputMasks(e.target.value, mask));
             }}
-            defaultValue={mask ? inputMasks(field.value, mask) : field.value}
+            value={mask ? inputMasks(field.value, mask) : field.value}
             onFocus={onFocusLabel}
             onBlur={() => {
               field.onBlur();

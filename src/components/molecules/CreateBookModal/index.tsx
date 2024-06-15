@@ -3,7 +3,7 @@ import { z } from 'zod';
 import { createBookModalDefaultValues, createBookModalSchema } from './validationSchema';
 import Input from '#/components/atoms/Input';
 import { useAuthContext } from '#/context/authContext/useAuthContext';
-import { createBook } from '#/services/books/books';
+import { createBook } from '#/services/books';
 import { useState } from 'react';
 import Button from '#/components/atoms/Button';
 import Select from '#/components/atoms/Select';
@@ -52,14 +52,14 @@ const CreateBookModal = ({ setOpenModal }: Props) => {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="grid grid-cols-2 gap-4">
-      <Input label="Título *" {...inputUseFormHandler('title')} />
-      <Input label="Descrição *" {...inputUseFormHandler('description')} />
-      <Input label="Autor *" {...inputUseFormHandler('author')} />
-      <Input label="Personagem *" {...inputUseFormHandler('character')} />
-      <Input mask="MONEY" label="Preço *" {...inputUseFormHandler('price')} />
-      <Input type="number" label="Quantidade em estoque *" {...inputUseFormHandler('storage')} />
-      <Select options={categories} label="Categoria * " {...inputUseFormHandler('category')} />
-      <Input type="date" label="Data de lançamento" {...inputUseFormHandler('publishDate')} />
+      <Input className="bg-white" label="Título *" {...inputUseFormHandler('title')} />
+      <Input className="bg-white" label="Descrição *" {...inputUseFormHandler('description')} />
+      <Input className="bg-white" label="Autor *" {...inputUseFormHandler('author')} />
+      <Input className="bg-white" label="Personagem *" {...inputUseFormHandler('character')} />
+      <Input className="bg-white" mask="MONEY" label="Preço *" {...inputUseFormHandler('price')} />
+      <Input className="bg-white" type="number" label="Quantidade em estoque *" {...inputUseFormHandler('storage')} />
+      <Select className="bg-white" options={categories} label="Categoria * " {...inputUseFormHandler('category')} />
+      <Input className="bg-white" type="date" label="Data de lançamento" {...inputUseFormHandler('publishDate')} />
       <Button className="col-span-2" loading={loading}>
         Cadastrar
       </Button>
