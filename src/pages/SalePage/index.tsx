@@ -3,6 +3,7 @@ import Button from '#/components/atoms/Button';
 import Input from '#/components/atoms/Input';
 import { useAuthContext } from '#/context/authContext/useAuthContext';
 import { useCartContext } from '#/context/cartContext/useCartContext';
+import { useMessageContext } from '#/context/messageContext/useMessageContext';
 import useFormControlValidation from '#/hooks/useFormControlValidation';
 import { createSale } from '#/services/sale';
 import Container from '#/templates/Container';
@@ -16,16 +17,18 @@ const SalePage = () => {
 
   const { cart } = useCartContext();
 
+  const { setMessage } = useMessageContext();
+
   const onSubmit = async () => {
     if (user.Client?.paymentId) {
       await createSale({ paymentId: user.Client?.paymentId })
         .then((res) => {
-          console.log({ res });
-
-          console.log('sucesso e alegria, compra realizada');
+          console.log(res.data);
+          setMessage({ content: 'Compra efetuada com suscesso!', severity: 'success', title: 'Sucesso!' });
         })
         .catch((error) => {
-          console.log(error);
+          setMessage({ content: `${error.response.data.message}`, severity: 'fail', title: 'Erro!' });
+          console.error(error);
         });
     }
   };
@@ -85,6 +88,8 @@ const SalePage = () => {
           <div className="grid grid-cols-3 gap-2">
             {cart?.BooksCart?.map((bookCart) => <BookCard {...bookCart.Book} />)}
           </div>
+
+          <h3>Os livros adquiridos chegarão em um periodo de 3 dias uteis</h3>
 
           <p className="text-center text-[16pt] mt-4">Valor total: {inputMasks(cart?.totalPrice + 30, 'MONEY')}</p>
           <Button className="w-[350px] self-center">Confirmar compra</Button>

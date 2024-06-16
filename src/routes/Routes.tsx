@@ -9,6 +9,7 @@ import MySales from '#/pages/MySales';
 import MyCart from '#/pages/MyCart';
 import SalePage from '#/pages/SalePage';
 import { CartStorage } from '#/context/cartContext';
+import NotFoundPage from '#/helpers/NotFoundPage';
 
 export interface IRoutes {
   path: string;
@@ -76,5 +77,10 @@ export const routes: IRoutes[] = [
       </CartStorage>
     ),
     accessPermission: ['CLIENT'],
+  },
+  {
+    path: '*',
+    component: <NotFoundPage />,
+    accessPermission: [],
   },
 ];

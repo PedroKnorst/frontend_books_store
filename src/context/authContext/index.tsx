@@ -1,6 +1,7 @@
 import { IAuthUser, ICreateUser, IUser } from '#/@types/user';
 import { authUser, createUser } from '#/services/user';
 import { ReactElement, createContext, useEffect, useState } from 'react';
+import { useMessageContext } from '../messageContext/useMessageContext';
 
 type TUserContext = {
   user: IUser;
@@ -17,6 +18,7 @@ const UserStorage = ({ children }: { children: ReactElement }) => {
   const [loading, setLoading] = useState(false);
   const [user, setUser] = useState({} as IUser);
   const [token, setToken] = useState<string>('');
+  const { setMessage } = useMessageContext();
 
   useEffect(() => {
     if (sessionStorage.getItem('user')) setUser(JSON.parse(sessionStorage.getItem('user') as string));
@@ -32,14 +34,15 @@ const UserStorage = ({ children }: { children: ReactElement }) => {
         const { user, token } = res.data;
 
         setUser(user);
+        setToken(token);
 
         sessionStorage.setItem('token', token);
         sessionStorage.setItem('user', JSON.stringify(user));
         isSigned = true;
       })
       .catch((error) => {
-        console.log(error.message);
-        alert(error.message);
+        console.log({ error });
+        setMessage({ content: `${error.response.data.message}`, severity: 'fail', title: 'Erro' });
         isSigned = false;
       })
       .finally(() => {
@@ -58,14 +61,15 @@ const UserStorage = ({ children }: { children: ReactElement }) => {
         const { user, token } = res.data;
 
         setUser(user);
+        setToken(token);
 
         sessionStorage.setItem('token', token);
         sessionStorage.setItem('user', JSON.stringify(user));
         isSigned = true;
       })
       .catch((error) => {
-        console.error(error);
-        alert(error.message);
+        console.log({ error });
+        setMessage({ content: `${error.response.data.message}`, severity: 'fail', title: 'Erro' });
         isSigned = false;
       })
       .finally(() => {
@@ -81,9 +85,7 @@ const UserStorage = ({ children }: { children: ReactElement }) => {
   };
 
   return (
-    <UserContext.Provider value={{ user, signIn, loading, signUp, token, logOut }}>
-      {children}
-    </UserContext.Provider>
+    <UserContext.Provider value={{ user, signIn, loading, signUp, token, logOut }}>{children}</UserContext.Provider>
   );
 };
 
