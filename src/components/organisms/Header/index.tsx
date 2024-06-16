@@ -1,6 +1,6 @@
 import { useAuthContext } from '#/context/authContext/useAuthContext';
 import { useCartContext } from '#/context/cartContext/useCartContext';
-import { ShoppingCart } from '@mui/icons-material';
+import { MenuBook, ShoppingCart } from '@mui/icons-material';
 import { useEffect } from 'react';
 import { NavLink } from 'react-router-dom';
 
@@ -44,8 +44,8 @@ const Header = () => {
   const salesperson = user.salespersonId;
 
   return (
-    <header className="w-full justify-between flex p-8 bg-yellow-500 rounded-lg">
-      <h2 className="min-w-[100px]">Loja de livros</h2>
+    <header className="w-full items-center justify-between flex p-8 bg-yellow-500 rounded-lg">
+      <MenuBook fontSize="large" />
       <ul className="flex gap-10 w-full justify-center">
         {navList.map(
           (option) =>

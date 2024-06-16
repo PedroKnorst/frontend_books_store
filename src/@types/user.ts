@@ -1,3 +1,6 @@
+import { IClient } from './client';
+import { ISalesperson } from './salesperson';
+
 export type Profiles = 'SALESPERSON' | 'CLIENT';
 
 export interface IUser {
@@ -5,7 +8,9 @@ export interface IUser {
   email: string;
   token: string;
   salespersonId?: string;
+  Salesperson?: ISalesperson;
   clientId?: string;
+  Client?: IClient;
 }
 
 export interface IAuthUser {

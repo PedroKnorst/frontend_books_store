@@ -1,6 +1,6 @@
 import { ICart } from '#/@types/cart';
 import { addOrRemoveBookOfCart, findCartById } from '#/services/cart';
-import { ReactElement, createContext, useState } from 'react';
+import { ReactElement, createContext, useEffect, useState } from 'react';
 
 type TCartContext = {
   cart: ICart;
@@ -17,25 +17,29 @@ const CartStorage = ({ children }: { children: ReactElement }) => {
   const [loading, setLoading] = useState(false);
   const [loadingManageBookToCart, setLoadingManageBookToCart] = useState(false);
 
+  useEffect(() => {
+    getCurrentCart();
+  }, []);
+
   const getCurrentCart = async () => {
     if (sessionStorage.getItem('user')) {
-      console.log('aq');
-
       const user = JSON.parse(sessionStorage.getItem('user') as string);
 
       const { clientId } = user;
 
-      setLoading(true);
-      await findCartById(clientId)
-        .then((res) => {
-          console.log(res.data);
-
-          setCart(res.data);
-        })
-        .catch((error) => console.log({ error }))
-        .finally(() => {
-          setLoading(false);
-        });
+      if (clientId) {
+        setLoading(true);
+        await findCartById(clientId)
+          .then((res) => {
+            console.log(res.data);
+            
+            setCart(res.data);
+          })
+          .catch((error) => console.log({ error }))
+          .finally(() => {
+            setLoading(false);
+          });
+      }
     }
   };
 

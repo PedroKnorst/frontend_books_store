@@ -7,6 +7,8 @@ import MyBooks from '#/pages/MyBooks';
 import { BooksStorage } from '#/context/booksContext';
 import MySales from '#/pages/MySales';
 import MyCart from '#/pages/MyCart';
+import SalePage from '#/pages/SalePage';
+import { CartStorage } from '#/context/cartContext';
 
 export interface IRoutes {
   path: string;
@@ -60,9 +62,18 @@ export const routes: IRoutes[] = [
   {
     path: '/meu-carrinho',
     component: (
-      <BooksStorage>
+      <CartStorage>
         <MyCart />
-      </BooksStorage>
+      </CartStorage>
+    ),
+    accessPermission: ['CLIENT'],
+  },
+  {
+    path: '/meu-carrinho/finalizar-compra',
+    component: (
+      <CartStorage>
+        <SalePage />
+      </CartStorage>
     ),
     accessPermission: ['CLIENT'],
   },

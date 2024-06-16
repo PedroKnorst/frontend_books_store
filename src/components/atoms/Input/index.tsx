@@ -56,6 +56,7 @@ const Input = ({ label, name, control, errors, type = 'text', mask, className, .
               setMoveLabel(false);
             }}
             type={type}
+            id={name}
             {...props}
           />
           <p className="text-red-700 text-[12px] h-3">{errorMessage}</p>
