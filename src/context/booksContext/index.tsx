@@ -9,6 +9,7 @@ type TBooksContext = {
   setBooks: (books: IBook[]) => void;
   setPage: (page: number) => void;
   setSize: (size: number) => void;
+  getBooks: () => void;
   page: number;
   size: number;
 };
@@ -28,7 +29,7 @@ const BooksStorage = ({ children }: { children: ReactElement }) => {
 
   useEffect(() => {
     setPage(total > 0 ? 1 : 0);
-  }, [books])
+  }, [books]);
 
   const getBooks = async () => {
     setLoading(true);
@@ -47,18 +48,7 @@ const BooksStorage = ({ children }: { children: ReactElement }) => {
   };
 
   return (
-    <BooksContext.Provider
-      value={{
-        books,
-        loading,
-        setBooks,
-        setPage,
-        setSize,
-        total,
-        page,
-        size,
-      }}
-    >
+    <BooksContext.Provider value={{ getBooks, books, loading, setBooks, setPage, setSize, total, page, size }}>
       {children}
     </BooksContext.Provider>
   );

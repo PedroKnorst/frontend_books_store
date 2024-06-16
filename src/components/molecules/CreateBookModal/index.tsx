@@ -3,15 +3,18 @@ import { z } from 'zod';
 import { createBookModalDefaultValues, createBookModalSchema } from './validationSchema';
 import Input from '#/components/atoms/Input';
 import { useAuthContext } from '#/context/authContext/useAuthContext';
-import { createBook } from '#/services/books';
+import { createBook, updateBook } from '#/services/books';
 import { useState } from 'react';
 import Button from '#/components/atoms/Button';
 import Select from '#/components/atoms/Select';
-import { BookCategory } from '#/@types/books';
+import { BookCategory, IBook } from '#/@types/books';
 import { useBooksContext } from '#/context/booksContext/useBooksContext';
+import { useMessageContext } from '#/context/messageContext/useMessageContext';
+import { isFloat } from '#/utils/checkNumberFloat';
 
 interface Props {
   setOpenModal: (e: boolean) => void;
+  updatedBook?: IBook;
 }
 
 type CreateBookModalSchemaType = z.infer<typeof createBookModalSchema>;
@@ -21,32 +24,72 @@ const categories = Object.keys(BookCategory).map((category) => ({
   value: category,
 }));
 
-const CreateBookModal = ({ setOpenModal }: Props) => {
+const CreateBookModal = ({ setOpenModal, updatedBook }: Props) => {
   const { handleSubmit, inputUseFormHandler } = useFormControlValidation({
     validationSchema: createBookModalSchema,
-    defaultValues: createBookModalDefaultValues,
+    defaultValues: updatedBook
+      ? {
+          ...updatedBook,
+          publishDate: updatedBook.publishDate.slice(0, 10),
+          price: isFloat(updatedBook.price) ? updatedBook.price.toString() : updatedBook.price.toString() + '00',
+        }
+      : createBookModalDefaultValues,
   });
   const [loading, setLoading] = useState(false);
 
   const { user } = useAuthContext();
-  const { setBooks, books } = useBooksContext();
+  const { getBooks } = useBooksContext();
+  const { setMessage } = useMessageContext();
 
   const onSubmit = async (data: CreateBookModalSchemaType) => {
     if (user.salespersonId) {
       setLoading(true);
-      await createBook({
-        ...data,
-        price: parseFloat(data.price.replace('R$ ', '').replace(',', '.')),
-        salespersonId: user.salespersonId,
-        category: data.category as BookCategory,
-      })
-        .then((res) => {
-          setBooks([res.data, ...books]);
-          setOpenModal(false);
+
+      if (updatedBook) {
+        await updateBook({
+          ...data,
+          id: updatedBook.id,
+          category: data.category as BookCategory,
+          price: parseFloat(data.price.replace('R$ ', '').replace(',', '.')),
         })
-        .finally(() => {
-          setLoading(false);
-        });
+          .then(() => {
+            getBooks();
+            setOpenModal(false);
+            setMessage({ content: 'Livro atualizado com sucesso', severity: 'success', title: 'Sucesso!' });
+          })
+          .catch((error) => {
+            setMessage({
+              content: `${error.response.data.message}`,
+              severity: 'fail',
+              title: 'Erro!',
+            });
+          })
+          .finally(() => {
+            setLoading(false);
+          });
+      } else {
+        await createBook({
+          ...data,
+          price: parseFloat(data.price.replace('R$ ', '').replace(',', '.')),
+          salespersonId: user.salespersonId,
+          category: data.category as BookCategory,
+        })
+          .then(() => {
+            getBooks();
+            setOpenModal(false);
+            setMessage({ content: 'O livro foi cadastrado com sucesso', severity: 'success', title: 'Sucesso!' });
+          })
+          .catch((error) => {
+            setMessage({
+              content: `${error.response.data.message}`,
+              severity: 'fail',
+              title: 'Erro!',
+            });
+          })
+          .finally(() => {
+            setLoading(false);
+          });
+      }
     }
   };
 
@@ -61,7 +104,7 @@ const CreateBookModal = ({ setOpenModal }: Props) => {
       <Select className="bg-white" options={categories} label="Categoria * " {...inputUseFormHandler('category')} />
       <Input className="bg-white" type="date" label="Data de lançamento" {...inputUseFormHandler('publishDate')} />
       <Button className="col-span-2" loading={loading}>
-        Cadastrar
+        {updatedBook ? 'Confirmar' : 'Cadastrar'}
       </Button>
     </form>
   );

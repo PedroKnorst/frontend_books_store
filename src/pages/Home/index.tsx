@@ -23,6 +23,8 @@ const Home = () => {
         <div className="grid grid-cols-2 gap-6">
           {loading ? (
             <Loading />
+          ) : books.length === 0 ? (
+            <h2 className="col-span-2">Não há livros disponiveis para compra</h2>
           ) : (
             books.map((book) => (
               <Modal key={book.id} triggerButton={<BookCard className="text-left" {...book} />}>

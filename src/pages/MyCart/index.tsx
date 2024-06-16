@@ -16,6 +16,8 @@ const MyCart = () => {
       <div className="bg-yellow-500 p-10 grid grid-cols-2 gap-6 mt-4 rounded-lg">
         {loading ? (
           <Loading />
+        ) : cart?.BooksCart?.length === 0 ? (
+          <h2 className="col-span-2">Nenhum item foi adicionado ao carrinho</h2>
         ) : (
           cart?.BooksCart?.map((bookCart) => (
             <BookCard
@@ -29,9 +31,9 @@ const MyCart = () => {
             />
           ))
         )}
-        <div className="col-span-2 w-full flex justify-end">
+        {cart?.BooksCart?.length > 0 && <div className="col-span-2 w-full flex justify-end">
           <Button onClick={() => navigate('/meu-carrinho/finalizar-compra')}>Finalizar compra</Button>
-        </div>
+        </div>}
       </div>
     </Container>
   );

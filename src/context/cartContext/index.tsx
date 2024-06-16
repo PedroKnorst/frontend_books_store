@@ -20,7 +20,6 @@ const CartStorage = ({ children }: { children: ReactElement }) => {
   const { user } = useAuthContext();
 
   useEffect(() => {
-    console.log({ user });
     if (user) getCurrentCart();
   }, [user]);
 

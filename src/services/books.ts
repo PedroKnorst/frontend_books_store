@@ -1,4 +1,4 @@
-import { ICreateBook, IGetBooksWithFilterParams } from '#/@types/books';
+import { ICreateBook, IGetBooksWithFilterParams, IUpdateBook } from '#/@types/books';
 import { api } from './server';
 
 export const getMarvelComicBooksWithFilter = async (params: { page: number; size: number }) => {
@@ -20,6 +20,14 @@ export const getBooksWithFilter = async (params: IGetBooksWithFilterParams) => {
 export const createBook = async (data: ICreateBook) => {
   try {
     return api.post('/book/create', data);
+  } catch (error) {
+    return Promise.reject(error);
+  }
+};
+
+export const updateBook = async (data: IUpdateBook) => {
+  try {
+    return api.put(`/book/${data.id}`, data);
   } catch (error) {
     return Promise.reject(error);
   }

@@ -27,6 +27,7 @@ export interface IBook {
   author: string;
   character: string;
   description: string;
+  publishDate: string;
   price: number;
   storage: number;
   category: BookCategory;
@@ -43,6 +44,19 @@ export interface ICreateBook {
   storage: number;
   salespersonId: string;
   category: BookCategory;
+  publishDate?: string;
+}
+
+export interface IUpdateBook {
+  id: string;
+  title: string;
+  author: string;
+  character: string;
+  description: string;
+  price: number;
+  storage: number;
+  category: BookCategory;
+  publishDate?: string;
 }
 
 export interface IGetBooksWithFilterParams {
