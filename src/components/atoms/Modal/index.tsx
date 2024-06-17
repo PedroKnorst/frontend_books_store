@@ -15,7 +15,7 @@ const Modal = ({ children, triggerButton, confirmButton, open }: InputProps) => 
       <AlertDialog.Trigger>{triggerButton}</AlertDialog.Trigger>
       <AlertDialog.Content className="fixed bottom-0 left-0 right-0 top-0 z-50 flex items-center justify-center">
         <AlertDialog.Cancel className="fixed cursor-default bottom-0 left-0 right-0 top-0 bg-gray-700 opacity-50" />
-        <div className="z-[9999] grid max-w-xl gap-4 text-black rounded-lg bg-white p-6">
+        <div className="z-[9999] max-h-[400px] overflow-y-scroll grid max-w-xl gap-4 text-black rounded-lg bg-white p-6">
           <AlertDialog.Cancel className="justify-self-end">
             <Cross1Icon height={24} width={24} />
           </AlertDialog.Cancel>

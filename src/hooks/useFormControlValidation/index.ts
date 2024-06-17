@@ -13,18 +13,22 @@ const useFormControlValidation = ({ validationSchema, defaultValues }: Props) =>
     control,
     formState: { errors },
     handleSubmit,
+    getValues,
   } = useForm<ValidationSchemaType>({
     mode: 'all',
     resolver: zodResolver(validationSchema),
     defaultValues,
   });
+
+  const values = getValues();
+
   const inputUseFormHandler = (name: keyof ValidationSchemaType) => ({
     control,
     errors,
     name: name as string,
   });
 
-  return { inputUseFormHandler, handleSubmit };
+  return { inputUseFormHandler, handleSubmit, values };
 };
 
 export default useFormControlValidation;

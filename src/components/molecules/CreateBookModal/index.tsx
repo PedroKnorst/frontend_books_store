@@ -11,6 +11,7 @@ import { BookCategory, IBook } from '#/@types/books';
 import { useBooksContext } from '#/context/booksContext/useBooksContext';
 import { useMessageContext } from '#/context/messageContext/useMessageContext';
 import { isFloat } from '#/utils/checkNumberFloat';
+import InputFile from '#/components/atoms/InputFile';
 
 interface Props {
   setOpenModal: (e: boolean) => void;
@@ -25,7 +26,7 @@ const categories = Object.keys(BookCategory).map((category) => ({
 }));
 
 const CreateBookModal = ({ setOpenModal, updatedBook }: Props) => {
-  const { handleSubmit, inputUseFormHandler } = useFormControlValidation({
+  const { handleSubmit, inputUseFormHandler, values } = useFormControlValidation({
     validationSchema: createBookModalSchema,
     defaultValues: updatedBook
       ? {
@@ -36,10 +37,15 @@ const CreateBookModal = ({ setOpenModal, updatedBook }: Props) => {
       : createBookModalDefaultValues,
   });
   const [loading, setLoading] = useState(false);
+  const [file, setFile] = useState<File>();
+
+  console.log({ values });
 
   const { user } = useAuthContext();
   const { getBooks } = useBooksContext();
   const { setMessage } = useMessageContext();
+
+  console.log();
 
   const onSubmit = async (data: CreateBookModalSchemaType) => {
     if (user.salespersonId) {
@@ -51,6 +57,7 @@ const CreateBookModal = ({ setOpenModal, updatedBook }: Props) => {
           id: updatedBook.id,
           category: data.category as BookCategory,
           price: parseFloat(data.price.replace('R$ ', '').replace(',', '.')),
+          image: file,
         })
           .then(() => {
             getBooks();
@@ -73,6 +80,7 @@ const CreateBookModal = ({ setOpenModal, updatedBook }: Props) => {
           price: parseFloat(data.price.replace('R$ ', '').replace(',', '.')),
           salespersonId: user.salespersonId,
           category: data.category as BookCategory,
+          image: file,
         })
           .then(() => {
             getBooks();
@@ -95,6 +103,9 @@ const CreateBookModal = ({ setOpenModal, updatedBook }: Props) => {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="grid grid-cols-2 gap-4">
+      <div className="row-span-3 flex justify-center">
+        <InputFile defaultValue={updatedBook?.Image.path} setFile={setFile} {...inputUseFormHandler('image')} />
+      </div>
       <Input className="bg-white" label="Título *" {...inputUseFormHandler('title')} />
       <Input className="bg-white" label="Descrição *" {...inputUseFormHandler('description')} />
       <Input className="bg-white" label="Autor *" {...inputUseFormHandler('author')} />

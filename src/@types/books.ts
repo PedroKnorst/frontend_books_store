@@ -21,6 +21,12 @@ export interface IMarvelComicBook {
   characters: string[];
 }
 
+export interface IImage {
+  id: string;
+  path: string;
+  bookId: string;
+}
+
 export interface IBook {
   id: string;
   title: string;
@@ -33,6 +39,7 @@ export interface IBook {
   category: BookCategory;
   salespersonId: string;
   Salesperson: ISalesperson;
+  Image: IImage;
 }
 
 export interface ICreateBook {
@@ -45,6 +52,7 @@ export interface ICreateBook {
   salespersonId: string;
   category: BookCategory;
   publishDate?: string;
+  image?: Blob | File;
 }
 
 export interface IUpdateBook {
@@ -57,6 +65,7 @@ export interface IUpdateBook {
   storage?: number;
   category?: BookCategory;
   publishDate?: string;
+  image?: Blob | File;
 }
 
 export interface IGetBooksWithFilterParams {

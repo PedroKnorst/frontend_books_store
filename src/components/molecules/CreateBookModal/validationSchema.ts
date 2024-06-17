@@ -11,6 +11,7 @@ export const createBookModalSchema = z.object({
     .min(1, 'O Estoque deve ser maior que 0!'),
   category: z.string().min(1, 'A Categoria é obrigatória!'),
   publishDate: z.string().optional(),
+  image: z.string({ required_error: 'A imagem é obrigatória!' }),
 });
 
 export const createBookModalDefaultValues = {
