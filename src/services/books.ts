@@ -32,12 +32,7 @@ export const createBook = async (data: ICreateBook) => {
 
 export const updateBook = async (data: IUpdateBook) => {
   try {
-    const formData = new FormData();
-    if (data.image) formData.append('image', data.image);
-    formData.append('book', JSON.stringify(data));
-    return api.put(`/book/${data.id}`, formData, {
-      headers: { 'Content-type': 'multipart/form-data' },
-    });
+    return api.put(`/book/${data.id}`, data);
   } catch (error) {
     return Promise.reject(error);
   }

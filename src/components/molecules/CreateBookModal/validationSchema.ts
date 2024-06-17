@@ -23,4 +23,5 @@ export const createBookModalDefaultValues = {
   storage: 1,
   category: '',
   publishDate: '',
+  image: undefined,
 };

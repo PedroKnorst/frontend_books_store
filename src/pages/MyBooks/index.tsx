@@ -25,7 +25,7 @@ const MyBooks = () => {
           ) : books.length === 0 ? (
             <h2>Não há livros cadastrados</h2>
           ) : (
-            books.map((book) => <EditBookCard book={book} />)
+            books.map((book) => <EditBookCard key={book.id} book={book} />)
           )}
         </div>
       </div>

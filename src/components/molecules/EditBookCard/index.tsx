@@ -12,7 +12,10 @@ const EditBookCard = ({ book }: Props) => {
   const [openModal, setOpenModal] = useState<boolean>();
 
   return (
-    <Modal open={openModal} triggerButton={<BookCard className="cursor-pointer text-left" {...book} />}>
+    <Modal
+      open={openModal}
+      triggerButton={<BookCard className="cursor-pointer text-left" {...book} imagePath={book.Image.path} />}
+    >
       <CreateBookModal updatedBook={book} setOpenModal={setOpenModal} />
     </Modal>
   );

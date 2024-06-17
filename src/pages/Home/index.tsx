@@ -27,7 +27,10 @@ const Home = () => {
             <h2 className="col-span-2">Não há livros disponiveis para compra</h2>
           ) : (
             books.map((book) => (
-              <Modal key={book.id} triggerButton={<BookCard className="text-left" {...book} />}>
+              <Modal
+                key={book.id}
+                triggerButton={<BookCard imagePath={book.Image.path} className="text-left" {...book} />}
+              >
                 <ViewBookModal bookId={book.id} />
               </Modal>
             ))

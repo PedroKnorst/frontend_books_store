@@ -86,7 +86,7 @@ const SalePage = () => {
           <h3>Livros a adquirir</h3>
 
           <div className="grid grid-cols-3 gap-2">
-            {cart?.BooksCart?.map((bookCart) => <BookCard {...bookCart.Book} />)}
+            {cart?.BooksCart?.map((bookCart) => <BookCard imagePath={bookCart.Book.Image.path} {...bookCart.Book} />)}
           </div>
 
           <h3>Os livros adquiridos chegarão em um periodo de 3 dias uteis</h3>

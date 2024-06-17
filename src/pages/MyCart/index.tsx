@@ -22,6 +22,7 @@ const MyCart = () => {
         ) : (
           cart?.BooksCart?.map((bookCart) => (
             <BookCard
+              imagePath={bookCart.Book.Image.path}
               icon={
                 <div className="self-end justify-between w-full flex">
                   <BooksQuantity

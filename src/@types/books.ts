@@ -19,6 +19,7 @@ export interface IMarvelComicBook {
   description: string;
   authors: string[];
   characters: string[];
+  image: string;
 }
 
 export interface IImage {
@@ -33,7 +34,7 @@ export interface IBook {
   author: string;
   character: string;
   description: string;
-  publishDate: string;
+  publishDate?: string;
   price: number;
   storage: number;
   category: BookCategory;
@@ -49,7 +50,6 @@ export interface ICreateBook {
   description: string;
   price: number;
   storage: number;
-  salespersonId: string;
   category: BookCategory;
   publishDate?: string;
   image?: Blob | File;

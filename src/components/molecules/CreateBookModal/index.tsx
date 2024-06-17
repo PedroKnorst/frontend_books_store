@@ -2,7 +2,6 @@ import useFormControlValidation from '#/hooks/useFormControlValidation';
 import { z } from 'zod';
 import { createBookModalDefaultValues, createBookModalSchema } from './validationSchema';
 import Input from '#/components/atoms/Input';
-import { useAuthContext } from '#/context/authContext/useAuthContext';
 import { createBook, updateBook } from '#/services/books';
 import { useState } from 'react';
 import Button from '#/components/atoms/Button';
@@ -26,12 +25,12 @@ const categories = Object.keys(BookCategory).map((category) => ({
 }));
 
 const CreateBookModal = ({ setOpenModal, updatedBook }: Props) => {
-  const { handleSubmit, inputUseFormHandler, values } = useFormControlValidation({
+  const { handleSubmit, inputUseFormHandler } = useFormControlValidation({
     validationSchema: createBookModalSchema,
     defaultValues: updatedBook
       ? {
           ...updatedBook,
-          publishDate: updatedBook.publishDate.slice(0, 10),
+          publishDate: updatedBook?.publishDate?.slice(0, 10),
           price: isFloat(updatedBook.price) ? updatedBook.price.toString() : updatedBook.price.toString() + '00',
         }
       : createBookModalDefaultValues,
@@ -39,65 +38,57 @@ const CreateBookModal = ({ setOpenModal, updatedBook }: Props) => {
   const [loading, setLoading] = useState(false);
   const [file, setFile] = useState<File>();
 
-  console.log({ values });
-
-  const { user } = useAuthContext();
   const { getBooks } = useBooksContext();
   const { setMessage } = useMessageContext();
 
-  console.log();
-
   const onSubmit = async (data: CreateBookModalSchemaType) => {
-    if (user.salespersonId) {
-      setLoading(true);
+    setLoading(true);
 
-      if (updatedBook) {
-        await updateBook({
-          ...data,
-          id: updatedBook.id,
-          category: data.category as BookCategory,
-          price: parseFloat(data.price.replace('R$ ', '').replace(',', '.')),
-          image: file,
+    if (updatedBook) {
+      await updateBook({
+        ...data,
+        id: updatedBook.id,
+        category: data.category as BookCategory,
+        price: parseFloat(data.price.replace('R$ ', '').replace(',', '.')),
+        image: file,
+      })
+        .then(() => {
+          getBooks();
+          setOpenModal(false);
+          setMessage({ content: 'Livro atualizado com sucesso', severity: 'success', title: 'Sucesso!' });
         })
-          .then(() => {
-            getBooks();
-            setOpenModal(false);
-            setMessage({ content: 'Livro atualizado com sucesso', severity: 'success', title: 'Sucesso!' });
-          })
-          .catch((error) => {
-            setMessage({
-              content: `${error.response.data.message}`,
-              severity: 'fail',
-              title: 'Erro!',
-            });
-          })
-          .finally(() => {
-            setLoading(false);
+        .catch((error) => {
+          setMessage({
+            content: `${error.response.data.message}`,
+            severity: 'fail',
+            title: 'Erro!',
           });
-      } else {
-        await createBook({
-          ...data,
-          price: parseFloat(data.price.replace('R$ ', '').replace(',', '.')),
-          salespersonId: user.salespersonId,
-          category: data.category as BookCategory,
-          image: file,
         })
-          .then(() => {
-            getBooks();
-            setOpenModal(false);
-            setMessage({ content: 'O livro foi cadastrado com sucesso', severity: 'success', title: 'Sucesso!' });
-          })
-          .catch((error) => {
-            setMessage({
-              content: `${error.response.data.message}`,
-              severity: 'fail',
-              title: 'Erro!',
-            });
-          })
-          .finally(() => {
-            setLoading(false);
+        .finally(() => {
+          setLoading(false);
+        });
+    } else {
+      await createBook({
+        ...data,
+        price: parseFloat(data.price.replace('R$ ', '').replace(',', '.')),
+        category: data.category as BookCategory,
+        image: file,
+      })
+        .then(() => {
+          getBooks();
+          setOpenModal(false);
+          setMessage({ content: 'O livro foi cadastrado com sucesso', severity: 'success', title: 'Sucesso!' });
+        })
+        .catch((error) => {
+          setMessage({
+            content: `${error.response.data.message}`,
+            severity: 'fail',
+            title: 'Erro!',
           });
-      }
+        })
+        .finally(() => {
+          setLoading(false);
+        });
     }
   };
 
