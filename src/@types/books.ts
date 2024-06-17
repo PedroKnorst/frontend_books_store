@@ -49,13 +49,13 @@ export interface ICreateBook {
 
 export interface IUpdateBook {
   id: string;
-  title: string;
-  author: string;
-  character: string;
-  description: string;
-  price: number;
-  storage: number;
-  category: BookCategory;
+  title?: string;
+  author?: string;
+  character?: string;
+  description?: string;
+  price?: number;
+  storage?: number;
+  category?: BookCategory;
   publishDate?: string;
 }
 
@@ -66,10 +66,15 @@ export interface IGetBooksWithFilterParams {
 
 export interface IBookCart {
   id: string;
-  quantity: string;
+  quantity: number;
   totalPrice: number;
   bookId: string;
   Book: IBook;
   cartId: string;
   Cart: ICart;
+}
+
+export interface IUpdateBookCart {
+  id: string;
+  quantity: number;
 }

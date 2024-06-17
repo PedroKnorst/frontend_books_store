@@ -30,8 +30,6 @@ const CartStorage = ({ children }: { children: ReactElement }) => {
       setLoading(true);
       await findCartById(clientId)
         .then((res) => {
-          console.log(res.data);
-
           setCart(res.data);
         })
         .catch((error) => console.log({ error }))

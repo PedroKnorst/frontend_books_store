@@ -1,13 +1,14 @@
 import BookCard from '#/components/atoms/BookCard';
 import Button from '#/components/atoms/Button';
 import Loading from '#/components/atoms/Loading';
+import BooksQuantity from '#/components/molecules/BookQuantity';
 import { useCartContext } from '#/context/cartContext/useCartContext';
 import Container from '#/templates/Container';
 import { RemoveShoppingCart } from '@mui/icons-material';
 import { useNavigate } from 'react-router-dom';
 
 const MyCart = () => {
-  const { cart, loading, manageBookToCart } = useCartContext();
+  const { cart, loading, manageBookToCart, loadingManageBookToCart, getCurrentCart } = useCartContext();
 
   const navigate = useNavigate();
 
@@ -22,18 +23,38 @@ const MyCart = () => {
           cart?.BooksCart?.map((bookCart) => (
             <BookCard
               icon={
-                <RemoveShoppingCart
-                  onClick={() => manageBookToCart(bookCart.bookId, true)}
-                  className="self-end text-red-600"
-                />
+                <div className="self-end justify-between w-full flex">
+                  <BooksQuantity
+                    bookInitialQuantity={bookCart.quantity}
+                    bookCartId={bookCart.id}
+                    bookStorage={bookCart.Book.storage}
+                  />
+                  {loadingManageBookToCart ? (
+                    <Loading className="max-w-4 max-h-4" />
+                  ) : (
+                    <RemoveShoppingCart
+                      onClick={() => manageBookToCart(bookCart.bookId, true)}
+                      className="text-red-600 cursor-pointer hover:scale-110 transition"
+                    />
+                  )}
+                </div>
               }
               {...bookCart.Book}
             />
           ))
         )}
-        {cart?.BooksCart?.length > 0 && <div className="col-span-2 w-full flex justify-end">
-          <Button onClick={() => navigate('/meu-carrinho/finalizar-compra')}>Finalizar compra</Button>
-        </div>}
+        {cart?.BooksCart?.length > 0 && (
+          <div className="col-span-2 w-full flex justify-end">
+            <Button
+              onClick={() => {
+                getCurrentCart();
+                navigate('/meu-carrinho/finalizar-compra');
+              }}
+            >
+              Finalizar compra
+            </Button>
+          </div>
+        )}
       </div>
     </Container>
   );
