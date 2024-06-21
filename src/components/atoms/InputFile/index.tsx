@@ -18,7 +18,7 @@ const InputFile = ({ control, name, errors, setFile, defaultValue }: Props) => {
       name={name}
       render={({ field }) => (
         <div className="flex flex-col items-center">
-          <div className="relative w-40 h-full flex items-center border-yellow-500 border-2 justify-center">
+          <div className="relative w-40 h-[200px] flex items-center justify-center">
             {!defaultValue && (
               <input
                 className="opacity-0 absolute h-full w-full cursor-pointer"

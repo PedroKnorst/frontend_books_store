@@ -31,7 +31,7 @@ const Select = ({ options, name, control, label, errors, className, ...props }: 
         <div className="relative grid mt-4 gap-1 text-black">
           <label
             className={clsx(
-              'absolute top-2 bg-transparent px-1 transition left-2',
+              'absolute top-2 px-1 transition left-2',
               {
                 '-translate-y-6 scale-75 -translate-x-4': moveLabel || field.value,
               },
@@ -44,7 +44,7 @@ const Select = ({ options, name, control, label, errors, className, ...props }: 
           <select
             {...props}
             {...field}
-            className={clsx('border-b-[#133052] bg-transparent border border-transparent outline-none p-2', className)}
+            className={clsx('border-b-[#133052] border border-transparent outline-none p-2', className)}
             onFocus={onFocusLabel}
             onBlur={() => {
               field.onBlur();

@@ -11,6 +11,7 @@ import { useBooksContext } from '#/context/booksContext/useBooksContext';
 import { useMessageContext } from '#/context/messageContext/useMessageContext';
 import { isFloat } from '#/utils/checkNumberFloat';
 import InputFile from '#/components/atoms/InputFile';
+import Textarea from '#/components/atoms/Textarea';
 
 interface Props {
   setOpenModal: (e: boolean) => void;
@@ -94,11 +95,11 @@ const CreateBookModal = ({ setOpenModal, updatedBook }: Props) => {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="grid grid-cols-2 gap-4">
-      <div className="row-span-3 flex justify-center">
+      <div className="row-span-2 flex justify-center">
         <InputFile defaultValue={updatedBook?.Image.path} setFile={setFile} {...inputUseFormHandler('image')} />
       </div>
       <Input className="bg-white" label="Título *" {...inputUseFormHandler('title')} />
-      <Input className="bg-white" label="Descrição *" {...inputUseFormHandler('description')} />
+      <Textarea className="bg-white" label="Descrição *" {...inputUseFormHandler('description')} />
       <Input className="bg-white" label="Autor *" {...inputUseFormHandler('author')} />
       <Input className="bg-white" label="Personagem *" {...inputUseFormHandler('character')} />
       <Input className="bg-white" mask="MONEY" label="Preço *" {...inputUseFormHandler('price')} />

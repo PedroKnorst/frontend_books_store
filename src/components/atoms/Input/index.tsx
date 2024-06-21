@@ -39,7 +39,9 @@ const Input = ({ label, name, control, errors, type = 'text', mask, className, .
             {label}
           </label>
           <input
-            className={clsx('border-b-[#133052] border border-transparent outline-none p-2', className)}
+            className={clsx('border-b-[#133052] border border-transparent outline-none p-2', className, {
+              'text-transparent placeholder:text-transparent': !moveLabel,
+            })}
             {...field}
             onChange={(e) => {
               if (type === 'number') {
@@ -53,7 +55,7 @@ const Input = ({ label, name, control, errors, type = 'text', mask, className, .
             onFocus={onFocusLabel}
             onBlur={() => {
               field.onBlur();
-              setMoveLabel(false);
+              if (!field.value) setMoveLabel(false);
             }}
             type={type}
             id={name}

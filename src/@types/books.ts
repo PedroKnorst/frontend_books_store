@@ -71,6 +71,12 @@ export interface IUpdateBook {
 export interface IGetBooksWithFilterParams {
   page: number;
   size: number;
+  title?: string;
+  author?: string;
+  character?: string;
+  category?: BookCategory;
+  publishDateStarts?: string;
+  publishDateEnds?: string;
 }
 
 export interface IBookCart {

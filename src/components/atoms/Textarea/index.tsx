@@ -9,7 +9,7 @@ interface Props extends TextareaHTMLAttributes<HTMLTextAreaElement> {
   errors: FieldErrors<FieldValues>;
 }
 
-const Textarea = ({ label, name, control, errors, ...props }: Props) => {
+const Textarea = ({ label, name, control, errors, className, ...props }: Props) => {
   const [moveLabel, setMoveLabel] = useState(false);
   const errorMessage = errors?.[name]?.message as string;
 
@@ -22,11 +22,15 @@ const Textarea = ({ label, name, control, errors, ...props }: Props) => {
       control={control}
       name={name}
       render={({ field }) => (
-        <div className="relative grid gap-1 text-black">
+        <div className="relative mt-4 grid gap-1 text-black">
           <label
-            className={clsx('absolute top-2 transition left-2', {
-              '-translate-y-8 -translate-x-2': moveLabel || field.value,
-            })}
+            className={clsx(
+              'absolute top-2 px-1 transition left-2',
+              {
+                '-translate-y-6 scale-75 -translate-x-4': moveLabel || field.value,
+              },
+              className,
+            )}
             htmlFor={name}
           >
             {label}
@@ -41,7 +45,7 @@ const Textarea = ({ label, name, control, errors, ...props }: Props) => {
             }}
             {...props}
           />
-          <p className="text-red-700 h-3">{errorMessage}</p>
+          <p className="text-red-700 text-[12px] h-3">{errorMessage}</p>
         </div>
       )}
     />

@@ -22,8 +22,7 @@ const SalePage = () => {
   const onSubmit = async () => {
     if (user.Client?.paymentId) {
       await createSale({ paymentId: user.Client?.paymentId })
-        .then((res) => {
-          console.log(res.data);
+        .then(() => {
           setMessage({ content: 'Compra efetuada com suscesso!', severity: 'success', title: 'Sucesso!' });
         })
         .catch((error) => {

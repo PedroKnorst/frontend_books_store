@@ -16,8 +16,6 @@ const ComicBooksPage = () => {
     setLoading(true);
     getMarvelComicBooksWithFilter({ page, size: 6 })
       .then((res) => {
-        console.log(res.data.books);
-
         setMarvelBooks(res.data.books);
         setTotal(res.data.total);
       })
