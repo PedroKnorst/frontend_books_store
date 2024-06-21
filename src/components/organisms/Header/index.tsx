@@ -1,8 +1,8 @@
 import { useAuthContext } from '#/context/authContext/useAuthContext';
 import { useCartContext } from '#/context/cartContext/useCartContext';
 import { MenuBook, ShoppingCart } from '@mui/icons-material';
-import { useEffect } from 'react';
 import { NavLink } from 'react-router-dom';
+import marvelLogo from '#assets/marvel-logo.png';
 
 const navList = [
   {
@@ -41,7 +41,10 @@ const Header = () => {
 
   return (
     <header className="w-full items-center justify-between flex p-8 bg-yellow-500 rounded-lg">
-      <MenuBook fontSize="large" />
+      <div className="flex items-center gap-2">
+        <img src={marvelLogo} className="h-14 w-full" alt="Marvel Logo" />
+        <MenuBook className="text-white" fontSize="large" />
+      </div>
       <ul className="flex gap-10 w-full justify-center">
         {navList.map(
           (option) =>

@@ -10,9 +10,10 @@ interface Props extends InputHTMLAttributes<HTMLInputElement> {
   errors: FieldErrors<FieldValues>;
   mask?: 'MONEY';
   type?: string;
+  labelClassName?: string;
 }
 
-const Input = ({ label, name, control, errors, type = 'text', mask, className, ...props }: Props) => {
+const Input = ({ label, name, control, errors, type = 'text', mask, className, labelClassName, ...props }: Props) => {
   const [moveLabel, setMoveLabel] = useState(false);
   const errorMessage = errors?.[name]?.message as string;
 
@@ -25,14 +26,14 @@ const Input = ({ label, name, control, errors, type = 'text', mask, className, .
       control={control}
       name={name}
       render={({ field }) => (
-        <div className="relative mt-4 grid gap-1 text-black">
+        <div className="relative h-14 items-center mt-4 grid gap-1 text-black">
           <label
             className={clsx(
-              'absolute top-2 px-1 transition left-2',
+              'absolute top-2 px-1 font-[600] transition left-2',
               {
                 '-translate-y-6 scale-75 -translate-x-4': moveLabel || field.value,
               },
-              className,
+              labelClassName,
             )}
             htmlFor={name}
           >

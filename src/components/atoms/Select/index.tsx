@@ -13,9 +13,10 @@ interface Props extends SelectHTMLAttributes<HTMLSelectElement> {
   errors: FieldErrors<FieldValues>;
   name: string;
   label: string;
+  labelClassName?: string;
 }
 
-const Select = ({ options, name, control, label, errors, className, ...props }: Props) => {
+const Select = ({ options, name, control, label, errors, className, labelClassName, ...props }: Props) => {
   const [moveLabel, setMoveLabel] = useState(false);
   const errorMessage = errors?.[name]?.message as string;
 
@@ -28,14 +29,14 @@ const Select = ({ options, name, control, label, errors, className, ...props }: 
       control={control}
       name={name}
       render={({ field }) => (
-        <div className="relative grid mt-4 gap-1 text-black">
+        <div className="relative h-14 items-center mt-4 grid gap-1 text-black">
           <label
             className={clsx(
-              'absolute top-2 px-1 transition left-2',
+              'absolute top-2 px-1 font-[600] transition left-2',
               {
                 '-translate-y-6 scale-75 -translate-x-4': moveLabel || field.value,
               },
-              className,
+              labelClassName,
             )}
             htmlFor={name}
           >
@@ -44,11 +45,13 @@ const Select = ({ options, name, control, label, errors, className, ...props }: 
           <select
             {...props}
             {...field}
-            className={clsx('border-b-[#133052] border border-transparent outline-none p-2', className)}
+            className={clsx('border-b-[#133052] border border-transparent outline-none p-2', className, {
+              'text-transparent placeholder:text-transparent': !moveLabel,
+            })}
             onFocus={onFocusLabel}
             onBlur={() => {
               field.onBlur();
-              setMoveLabel(false);
+              if (!field.value) setMoveLabel(false);
             }}
           >
             <option disabled></option>
