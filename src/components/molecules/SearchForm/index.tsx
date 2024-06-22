@@ -9,6 +9,7 @@ import { z } from 'zod';
 interface Props {
   className?: string;
   onSearch: (data: SearchFormSchemaType) => void;
+  comicBookFilter?: boolean;
 }
 
 const searchFormSchema = z.object({
@@ -16,6 +17,7 @@ const searchFormSchema = z.object({
   category: z.string().optional(),
   releaseDateBegin: z.string().optional(),
   releaseDateEnd: z.string().optional(),
+  startYear: z.string().optional(),
 });
 
 const categroyOptions = () => {
@@ -29,10 +31,10 @@ const categroyOptions = () => {
 
 export type SearchFormSchemaType = z.infer<typeof searchFormSchema>;
 
-const SearchForm = ({ className, onSearch }: Props) => {
+const SearchForm = ({ className, onSearch, comicBookFilter }: Props) => {
   const { handleSubmit, inputUseFormHandler, reset, values } = useFormControlValidation({
     validationSchema: searchFormSchema,
-    defaultValues: { search: '', category: '', releaseDateBegin: '', releaseDateEnd: '' },
+    defaultValues: { search: '', category: '', releaseDateBegin: '', releaseDateEnd: '', startYear: '' },
   });
 
   return (
@@ -43,14 +45,36 @@ const SearchForm = ({ className, onSearch }: Props) => {
       <Input
         className="w-[400px]"
         label="Pesquisar"
-        placeholder="Busque por titulo, autor ou personagem"
+        placeholder={comicBookFilter ? 'Digite o nome do livro' : 'Busque por titulo, autor ou personagem'}
         {...inputUseFormHandler('search')}
       />
-      <Select options={categroyOptions()} label="Categoria" {...inputUseFormHandler('category')} />
-      <Input max={values['releaseDateEnd']} type="date" label="De" {...inputUseFormHandler('releaseDateBegin')} />
-      <Input min={values['releaseDateBegin']} type="date" label="Até" {...inputUseFormHandler('releaseDateEnd')} />
+      {!comicBookFilter && (
+        <Select options={categroyOptions()} label="Categoria" {...inputUseFormHandler('category')} />
+      )}
+      {!comicBookFilter && (
+        <Input max={values['releaseDateEnd']} type="date" label="De" {...inputUseFormHandler('releaseDateBegin')} />
+      )}
+      {!comicBookFilter && (
+        <Input min={values['releaseDateBegin']} type="date" label="Até" {...inputUseFormHandler('releaseDateEnd')} />
+      )}
+      {comicBookFilter && (
+        <Input
+          type="number"
+          className="w-[200px]"
+          min="0"
+          max="9999"
+          label="Ano de inicio"
+          {...inputUseFormHandler('startYear')}
+        />
+      )}
       <Button type="submit">Filtrar</Button>
-      <Button onClick={reset} type="button">
+      <Button
+        onClick={() => {
+          reset();
+          onSearch({});
+        }}
+        type="button"
+      >
         Limpar filtro
       </Button>
     </form>

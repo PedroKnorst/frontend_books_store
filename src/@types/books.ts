@@ -15,10 +15,14 @@ export enum BookCategory {
 }
 
 export interface IMarvelComicBook {
+  id: string;
   title: string;
-  description: string;
   authors: string[];
   characters: string[];
+  publishDate: Date;
+  description: string;
+  pageCount: number;
+  prices: number[];
   image: string;
 }
 
@@ -53,6 +57,16 @@ export interface ICreateBook {
   category: BookCategory;
   publishDate?: string;
   image?: Blob | File;
+}
+
+export interface IGetComicBooksFilters {
+  digitalId?: string;
+  page?: number;
+  size?: number;
+  title?: string;
+  startYear?: string;
+  characters?: string;
+  creators?: string;
 }
 
 export interface IUpdateBook {

@@ -40,7 +40,7 @@ const ViewBookModal = ({ bookId }: Props) => {
     <Loading />
   ) : (
     <div className="grid grid-cols-2 gap-3">
-      <img className="w-full h-full" src={`${`http://localhost:3333/static/${book?.Image.path}`}`} alt={book?.title} />
+      <img className="w-full h-full" src={`http://localhost:3333/static/${book?.Image.path}`} alt={book?.title} />
       <div className="flex justify-center gap-2 flex-col">
         <h2>{book?.title}</h2>
         <p>

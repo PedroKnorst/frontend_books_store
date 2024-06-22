@@ -1,7 +1,7 @@
-import { IBook, ICreateBook, IGetBooksWithFilterParams, IUpdateBook } from '#/@types/books';
+import { IBook, ICreateBook, IGetBooksWithFilterParams, IGetComicBooksFilters, IUpdateBook } from '#/@types/books';
 import { api } from './server';
 
-export const getMarvelComicBooksWithFilter = async (params: { page: number; size: number }) => {
+export const getMarvelComicBooksWithFilter = async (params: IGetComicBooksFilters) => {
   try {
     return api.get('/book/marvelBooks', { params });
   } catch (error) {
