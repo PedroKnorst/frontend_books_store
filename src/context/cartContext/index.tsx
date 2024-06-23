@@ -2,6 +2,7 @@ import { ICart } from '#/@types/cart';
 import { addOrRemoveBookOfCart, findCartById } from '#/services/cart';
 import { ReactElement, createContext, useEffect, useState } from 'react';
 import { useAuthContext } from '../authContext/useAuthContext';
+import { useMessageContext } from '../messageContext/useMessageContext';
 
 type TCartContext = {
   cart: ICart;
@@ -18,6 +19,7 @@ const CartStorage = ({ children }: { children: ReactElement }) => {
   const [loading, setLoading] = useState(false);
   const [loadingManageBookToCart, setLoadingManageBookToCart] = useState(false);
   const { user } = useAuthContext();
+  const { setMessage } = useMessageContext();
 
   useEffect(() => {
     if (user) getCurrentCart();
@@ -44,9 +46,30 @@ const CartStorage = ({ children }: { children: ReactElement }) => {
     await addOrRemoveBookOfCart({ bookId, deleteBook })
       .then((res) => {
         setCart(res.data);
+
+        if (deleteBook) {
+          setMessage({ content: 'Livro removido do carrinho!', severity: 'success', title: 'Sucesso!' });
+        } else {
+          setMessage({ content: 'Livro adicionado ao carrinho!', severity: 'success', title: 'Sucesso!' });
+        }
+
+        getCurrentCart();
       })
       .catch((error) => {
         console.log({ error });
+        if (deleteBook) {
+          setMessage({
+            content: 'Erro ao remover livro do carrinho, tente novamente mais tarde!',
+            severity: 'success',
+            title: 'Erro!',
+          });
+        } else {
+          setMessage({
+            content: 'Erro ao adicionar livro ao carrinho, tente novamente mais tarde!',
+            severity: 'success',
+            title: 'Erro!',
+          });
+        }
       })
       .finally(() => {
         setLoadingManageBookToCart(false);

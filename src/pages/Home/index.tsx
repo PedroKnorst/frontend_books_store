@@ -10,7 +10,7 @@ import { getBooksWithFilter } from '#/services/books';
 import Container from '#/templates/Container';
 
 const Home = () => {
-  const { books, loading, setTotal, setBooks } = useBooksContext();
+  const { books, loading, setTotal, setBooks, page, setPage, size, total } = useBooksContext();
 
   const onSearch = async ({ search, category, releaseDateBegin, releaseDateEnd }: SearchFormSchemaType) => {
     const searchItem = search
@@ -40,7 +40,7 @@ const Home = () => {
           <SearchForm onSearch={onSearch} />
         </div>
         <div className="self-end">
-          <BooksPagination />
+          <BooksPagination page={page} setPage={setPage} size={size} total={total} />
         </div>
         <div className="grid grid-cols-4 gap-8">
           {loading ? (

@@ -39,26 +39,46 @@ const SearchForm = ({ className, onSearch, comicBookFilter }: Props) => {
 
   return (
     <form
+      name="searchform"
       onSubmit={handleSubmit(onSearch)}
       className={clsx('w-full items-center justify-center gap-2 flex', className)}
     >
       <Input
+        data-testid="search"
         className="w-[400px]"
         label="Pesquisar"
         placeholder={comicBookFilter ? 'Digite o nome do livro' : 'Busque por titulo, autor ou personagem'}
         {...inputUseFormHandler('search')}
       />
       {!comicBookFilter && (
-        <Select options={categroyOptions()} label="Categoria" {...inputUseFormHandler('category')} />
+        <Select
+          data-testid="category"
+          options={categroyOptions()}
+          label="Categoria"
+          {...inputUseFormHandler('category')}
+        />
       )}
       {!comicBookFilter && (
-        <Input max={values['releaseDateEnd']} type="date" label="De" {...inputUseFormHandler('releaseDateBegin')} />
+        <Input
+          data-testid="releaseDateBegin"
+          max={values['releaseDateEnd']}
+          type="date"
+          label="De"
+          {...inputUseFormHandler('releaseDateBegin')}
+        />
       )}
       {!comicBookFilter && (
-        <Input min={values['releaseDateBegin']} type="date" label="Até" {...inputUseFormHandler('releaseDateEnd')} />
+        <Input
+          data-testid="releaseDateEnd"
+          min={values['releaseDateBegin']}
+          type="date"
+          label="Até"
+          {...inputUseFormHandler('releaseDateEnd')}
+        />
       )}
       {comicBookFilter && (
         <Input
+          data-testid="startYear"
           type="number"
           className="w-[200px]"
           min="0"
@@ -69,6 +89,7 @@ const SearchForm = ({ className, onSearch, comicBookFilter }: Props) => {
       )}
       <Button type="submit">Filtrar</Button>
       <Button
+        data-testid="cleanFilterButton"
         onClick={() => {
           reset();
           onSearch({});

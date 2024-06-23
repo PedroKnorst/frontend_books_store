@@ -68,7 +68,7 @@ const ComicBooksPage = () => {
           <SearchForm comicBookFilter onSearch={onSearch} />
         </div>
         <div className="self-end">
-          <BooksPagination optionalTotal={total} optionalPage={page} optionalSetPage={setPage} optionalSize={6} />
+          <BooksPagination total={total} page={page} setPage={setPage} size={6} />
         </div>
         <div className="grid grid-cols-4 gap-6">
           {loading ? (

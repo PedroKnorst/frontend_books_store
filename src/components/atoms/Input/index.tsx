@@ -36,6 +36,7 @@ const Input = ({ label, name, control, errors, type = 'text', mask, className, l
               labelClassName,
             )}
             htmlFor={name}
+            data-testid="inputLabel"
           >
             {label}
           </label>

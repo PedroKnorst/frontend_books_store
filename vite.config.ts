@@ -13,7 +13,12 @@ export default defineConfig(({ mode }) => {
       'process.env': env,
     },
     test: {
-      // ...
+      globals: true,
+      environment: 'jsdom',
+      deps: {
+        inline: [/@effection\/vitest/],
+      },
+      setupFiles: ['./setupTests.js'],
     },
     resolve: {
       alias: {

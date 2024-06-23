@@ -8,10 +8,13 @@ import useFormControlValidation from '#/hooks/useFormControlValidation';
 import { createSale } from '#/services/sale';
 import Container from '#/templates/Container';
 import { inputMasks } from '#/utils/inputMasks';
+import { useNavigate } from 'react-router-dom';
 import { saleValidationSchema } from './validationSchema';
 
 const SalePage = () => {
   const { handleSubmit, inputUseFormHandler } = useFormControlValidation({ validationSchema: saleValidationSchema });
+
+  const navigate = useNavigate();
 
   const { user } = useAuthContext();
 
@@ -23,7 +26,8 @@ const SalePage = () => {
     if (user.Client?.paymentId) {
       await createSale({ paymentId: user.Client?.paymentId })
         .then(() => {
-          setMessage({ content: 'Compra efetuada com suscesso!', severity: 'success', title: 'Sucesso!' });
+          setMessage({ content: 'Compra efetuada com sucesso!', severity: 'success', title: 'Sucesso!' });
+          navigate('/meu-carrinho');
         })
         .catch((error) => {
           setMessage({ content: `${error.response.data.message}`, severity: 'fail', title: 'Erro!' });
