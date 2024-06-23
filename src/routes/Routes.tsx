@@ -1,15 +1,18 @@
 import { ReactElement } from 'react';
-import { LoginLazy, SignUpLazy } from './lazyComponents';
-import Home from '#/pages/Home';
+import {
+  ComicBooksPageLazy,
+  HomeLazy,
+  LoginLazy,
+  MyBooksLazy,
+  MyCartLazy,
+  MySalesLazy,
+  NotFoundPageLazy,
+  SalePageLazy,
+  SignUpLazy,
+} from './lazyComponents';
 import { Profiles } from '#/@types/user';
-import ComicBooksPage from '#/pages/ComicBooksPage';
-import MyBooks from '#/pages/MyBooks';
 import { BooksStorage } from '#/context/booksContext';
-import MySales from '#/pages/MySales';
-import MyCart from '#/pages/MyCart';
-import SalePage from '#/pages/SalePage';
 import { CartStorage } from '#/context/cartContext';
-import NotFoundPage from '#/helpers/NotFoundPage';
 
 export interface IRoutes {
   path: string;
@@ -32,21 +35,21 @@ export const routes: IRoutes[] = [
     path: '/home',
     component: (
       <BooksStorage>
-        <Home />
+        <HomeLazy />
       </BooksStorage>
     ),
     accessPermission: ['CLIENT'],
   },
   {
     path: '/livros-marvel',
-    component: <ComicBooksPage />,
+    component: <ComicBooksPageLazy />,
     accessPermission: ['SALESPERSON', 'CLIENT'],
   },
   {
     path: '/meus-livros',
     component: (
       <BooksStorage>
-        <MyBooks />
+        <MyBooksLazy />
       </BooksStorage>
     ),
     accessPermission: ['SALESPERSON'],
@@ -55,7 +58,7 @@ export const routes: IRoutes[] = [
     path: '/minhas-vendas',
     component: (
       <BooksStorage>
-        <MySales />
+        <MySalesLazy />
       </BooksStorage>
     ),
     accessPermission: ['SALESPERSON'],
@@ -64,7 +67,7 @@ export const routes: IRoutes[] = [
     path: '/meu-carrinho',
     component: (
       <CartStorage>
-        <MyCart />
+        <MyCartLazy />
       </CartStorage>
     ),
     accessPermission: ['CLIENT'],
@@ -73,14 +76,14 @@ export const routes: IRoutes[] = [
     path: '/meu-carrinho/finalizar-compra',
     component: (
       <CartStorage>
-        <SalePage />
+        <SalePageLazy />
       </CartStorage>
     ),
     accessPermission: ['CLIENT'],
   },
   {
     path: '*',
-    component: <NotFoundPage />,
+    component: <NotFoundPageLazy />,
     accessPermission: [],
   },
 ];
