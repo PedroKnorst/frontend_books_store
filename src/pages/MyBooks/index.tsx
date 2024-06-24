@@ -12,7 +12,7 @@ import Container from '#/templates/Container';
 import { useState } from 'react';
 
 const MyBooks = () => {
-  const { books, loading, setBooks, setTotal } = useBooksContext();
+  const { books, loading, setBooks, setTotal, page, setPage, total } = useBooksContext();
   const [openModal, setOpenModal] = useState<boolean>();
 
   const onSearch = async ({ search, category, releaseDateBegin, releaseDateEnd }: SearchFormSchemaType) => {
@@ -47,14 +47,14 @@ const MyBooks = () => {
             <CreateBookModal setOpenModal={setOpenModal} />
           </Modal>
           <div className="self-end">
-            <BooksPagination />
+            <BooksPagination page={page} setPage={setPage} total={total} size={8} />
           </div>
         </div>
         <div className="grid grid-cols-4 gap-8">
           {loading ? (
             <Loading />
           ) : books.length === 0 ? (
-            <h2>Não há livros cadastrados</h2>
+            <h2 className="col-span-4">Não há livros cadastrados</h2>
           ) : (
             books.map((book) => <EditBookCard key={book.id} book={book} />)
           )}

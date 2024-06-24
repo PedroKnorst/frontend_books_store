@@ -25,7 +25,7 @@ const Textarea = ({ label, name, control, errors, className, ...props }: Props) 
         <div className="relative mt-4 grid gap-1 text-black">
           <label
             className={clsx(
-              'absolute top-2 px-1 transition left-2',
+              'absolute top-2 px-1 font-[600] transition left-2',
               {
                 '-translate-y-6 scale-75 -translate-x-4': moveLabel || field.value,
               },
@@ -36,12 +36,14 @@ const Textarea = ({ label, name, control, errors, className, ...props }: Props) 
             {label}
           </label>
           <textarea
-            className="border-[#133052] resize-none min-h-16 border outline-none rounded-md max-w-60 min-w-32 p-2"
+            className={clsx('border-[#133052] resize-none border rounded-md outline-none p-2', className, {
+              'text-transparent placeholder:text-transparent': !moveLabel && !field.value,
+            })}
             {...field}
             onFocus={onFocusLabel}
             onBlur={() => {
               field.onBlur();
-              setMoveLabel(false);
+              if (!field.value) setMoveLabel(false);
             }}
             {...props}
           />

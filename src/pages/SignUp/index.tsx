@@ -39,31 +39,41 @@ const SignUp = () => {
     <AuthContainer>
       <form onSubmit={handleSubmit(onSubmit)} className="bg-yellow-500 rounded-lg py-8 px-4 grid grid-cols-2 gap-6">
         <Input
+          labelClassName="text-white"
           className="text-white bg-yellow-500 border-b-white"
           {...inputUseFormHandler('name')}
           label="Nome"
           type="name"
         />
         <Input
+          labelClassName="text-white"
           className="text-white bg-yellow-500 border-b-white"
           {...inputUseFormHandler('email')}
           label="Email"
           type="email"
         />
         <Input
+          labelClassName="text-white"
           className="text-white bg-yellow-500 border-b-white"
           {...inputUseFormHandler('phone')}
           label="Telefone"
           type="phone"
         />
         <Select
+          labelClassName="text-white"
           className="text-white bg-yellow-500 border-b-white"
           {...inputUseFormHandler('profile')}
           options={selectOptions}
           label="Perfil"
         />
-        <Input className="text-white bg-yellow-500 border-b-white" {...inputUseFormHandler('password')} label="Senha" />
         <Input
+          labelClassName="text-white"
+          className="text-white bg-yellow-500 border-b-white"
+          {...inputUseFormHandler('password')}
+          label="Senha"
+        />
+        <Input
+          labelClassName="text-white"
           className="text-white bg-yellow-500 border-b-white"
           {...inputUseFormHandler('confirmationPassword')}
           label="Confirmar senha"

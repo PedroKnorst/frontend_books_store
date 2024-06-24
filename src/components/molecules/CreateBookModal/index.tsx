@@ -33,6 +33,7 @@ const CreateBookModal = ({ setOpenModal, updatedBook }: Props) => {
           ...updatedBook,
           publishDate: updatedBook?.publishDate?.slice(0, 10),
           price: isFloat(updatedBook.price) ? updatedBook.price.toString() : updatedBook.price.toString() + '00',
+          image: updatedBook.Image.id,
         }
       : createBookModalDefaultValues,
   });
@@ -48,10 +49,11 @@ const CreateBookModal = ({ setOpenModal, updatedBook }: Props) => {
     if (updatedBook) {
       await updateBook({
         ...data,
+        publishDate:
+          updatedBook?.publishDate?.slice(0, 10) === data.publishDate ? updatedBook.publishDate : data.publishDate,
         id: updatedBook.id,
         category: data.category as BookCategory,
         price: parseFloat(data.price.replace('R$ ', '').replace(',', '.')),
-        image: file,
       })
         .then(() => {
           getBooks();
@@ -96,14 +98,19 @@ const CreateBookModal = ({ setOpenModal, updatedBook }: Props) => {
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="grid grid-cols-2 gap-4">
       <div className="row-span-2 flex justify-center">
-        <InputFile defaultValue={updatedBook?.Image.path} setFile={setFile} {...inputUseFormHandler('image')} />
+        <InputFile
+          onlyView={updatedBook !== undefined}
+          defaultValue={updatedBook?.Image.path}
+          setFile={setFile}
+          {...inputUseFormHandler('image')}
+        />
       </div>
       <Input className="bg-white" label="Título *" {...inputUseFormHandler('title')} />
       <Textarea className="bg-white" label="Descrição *" {...inputUseFormHandler('description')} />
       <Input className="bg-white" label="Autor *" {...inputUseFormHandler('author')} />
       <Input className="bg-white" label="Personagem *" {...inputUseFormHandler('character')} />
       <Input className="bg-white" mask="MONEY" label="Preço *" {...inputUseFormHandler('price')} />
-      <Input className="bg-white" type="number" label="Quantidade em estoque *" {...inputUseFormHandler('storage')} />
+      <Input className="bg-white" type="number" label="Estoque *" {...inputUseFormHandler('storage')} />
       <Select className="bg-white" options={categories} label="Categoria * " {...inputUseFormHandler('category')} />
       <Input className="bg-white" type="date" label="Data de lançamento" {...inputUseFormHandler('publishDate')} />
       <Button className="col-span-2" loading={loading}>

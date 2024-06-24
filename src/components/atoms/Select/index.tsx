@@ -46,7 +46,7 @@ const Select = ({ options, name, control, label, errors, className, labelClassNa
             {...props}
             {...field}
             className={clsx('border-b-[#133052] border border-transparent outline-none p-2', className, {
-              'text-transparent placeholder:text-transparent': !moveLabel,
+              'text-transparent placeholder:text-transparent': !moveLabel && !field.value,
             })}
             onFocus={onFocusLabel}
             onBlur={() => {

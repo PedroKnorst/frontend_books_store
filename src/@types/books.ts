@@ -79,7 +79,6 @@ export interface IUpdateBook {
   storage?: number;
   category?: BookCategory;
   publishDate?: string;
-  image?: Blob | File;
 }
 
 export interface IGetBooksWithFilterParams {

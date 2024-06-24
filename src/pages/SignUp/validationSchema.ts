@@ -3,7 +3,7 @@ import { z } from 'zod';
 export const signUpValidationSchema = z
   .object({
     name: z.string().min(1, 'O nome é obrigatório!'),
-    email: z.string().min(1, 'O email é obrigatório!'),
+    email: z.string().min(1, 'O email é obrigatório!').email({ message: 'Email inválido!' }),
     password: z.string().min(1, 'A senha é obrigatório!'),
     confirmationPassword: z.string().min(1, 'Confirme sua senha!'),
     phone: z.string().optional(),

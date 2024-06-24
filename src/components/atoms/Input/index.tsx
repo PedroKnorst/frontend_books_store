@@ -42,7 +42,7 @@ const Input = ({ label, name, control, errors, type = 'text', mask, className, l
           </label>
           <input
             className={clsx('border-b-[#133052] border border-transparent outline-none p-2', className, {
-              'text-transparent placeholder:text-transparent': !moveLabel,
+              'text-transparent placeholder:text-transparent': !moveLabel && !field.value,
             })}
             {...field}
             onChange={(e) => {

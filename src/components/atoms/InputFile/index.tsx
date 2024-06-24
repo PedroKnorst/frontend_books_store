@@ -7,9 +7,10 @@ interface Props {
   control: Control<any>;
   errors: FieldErrors<FieldValues>;
   setFile: (e: File) => void;
+  onlyView?: boolean;
 }
 
-const InputFile = ({ control, name, errors, setFile, defaultValue }: Props) => {
+const InputFile = ({ control, name, errors, setFile, defaultValue, onlyView }: Props) => {
   const errorMessage = errors?.[name]?.message as string;
 
   return (
@@ -51,7 +52,7 @@ const InputFile = ({ control, name, errors, setFile, defaultValue }: Props) => {
               <span className="flex gap-2 items-center w-full h-[200px]">
                 <img
                   className="w-full h-[200px]"
-                  src={`${field.value ? field.value : `http://localhost:3333/static/${defaultValue}`}`}
+                  src={`${field.value && !onlyView ? field.value : `http://localhost:3333/static/${defaultValue}`}`}
                   alt={name}
                 />
               </span>
