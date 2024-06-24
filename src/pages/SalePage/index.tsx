@@ -40,12 +40,12 @@ const SalePage = () => {
     <Container>
       <div className="bg-yellow-500 text-black p-10 mt-4 rounded-lg">
         <form className="flex flex-col gap-2" onSubmit={handleSubmit(onSubmit)}>
-          <div className="flex items-center justify-between">
+          <div className="flex max-md:flex-col max-md:text-center items-center justify-between">
             <h2>Informe seu endereço de entrega</h2>
             <h3>Custo do frete: R$30,00</h3>
           </div>
 
-          <div className="grid grid-cols-2 gap-2">
+          <div className="grid max-md:grid-cols-1 grid-cols-2 gap-2">
             <Input
               className="bg-yellow-500 text-white border-b-white"
               label="Estado"
@@ -72,7 +72,7 @@ const SalePage = () => {
 
           <h2>Informe os dados do seu cartão de crédito</h2>
 
-          <div className="grid grid-cols-2 gap-2">
+          <div className="grid grid-cols-2 max-md:grid-cols-1 gap-2">
             <Input
               className="bg-yellow-500 text-white border-b-white"
               label="Número do cartão"
@@ -88,14 +88,16 @@ const SalePage = () => {
 
           <h3>Livros a adquirir</h3>
 
-          <div className="grid grid-cols-3 gap-2">
+          <div className="grid xl:grid-cols-4 lg:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-6">
             {cart?.BooksCart?.map((bookCart) => <BookCard imagePath={bookCart.Book.Image.path} {...bookCart.Book} />)}
           </div>
 
           <h3>Os livros adquiridos chegarão em um periodo de 3 dias uteis</h3>
 
-          <p className="text-center text-[16pt] mt-4">Valor total: {inputMasks(cart?.totalPrice + 30, 'MONEY')}</p>
-          <Button className="w-[350px] self-center">Confirmar compra</Button>
+          <p className="text-center text-[16pt] mt-4">
+            Valor total: {inputMasks(cart?.totalPrice + 30, 'MONEY')}
+          </p>
+          <Button className="w-[350px] max-md:w-[250px] self-center">Confirmar compra</Button>
         </form>
       </div>
     </Container>

@@ -41,7 +41,7 @@ const SearchForm = ({ className, onSearch, comicBookFilter }: Props) => {
     <form
       name="searchform"
       onSubmit={handleSubmit(onSearch)}
-      className={clsx('w-full items-center justify-center gap-2 flex', className)}
+      className={clsx('w-full items-center justify-center gap-2 flex-wrap flex', className)}
     >
       <Input
         data-testid="search"

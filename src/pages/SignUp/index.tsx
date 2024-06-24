@@ -37,7 +37,7 @@ const SignUp = () => {
 
   return (
     <AuthContainer>
-      <form onSubmit={handleSubmit(onSubmit)} className="bg-yellow-500 rounded-lg py-8 px-4 grid grid-cols-2 gap-6">
+      <form onSubmit={handleSubmit(onSubmit)} className="bg-yellow-500 rounded-lg py-8 px-4 grid grid-cols-1 gap-6">
         <Input
           labelClassName="text-white"
           className="text-white bg-yellow-500 border-b-white"
@@ -78,7 +78,7 @@ const SignUp = () => {
           {...inputUseFormHandler('confirmationPassword')}
           label="Confirmar senha"
         />
-        <div className="flex flex-col col-span-2 gap-2">
+        <div className="flex flex-col sm:col-span-2 gap-2">
           <Button loading={loading}>Cadastrar</Button>
           <NavLink to={'/'} className="text-red-600 text-center hover:text-red-500 transition font-[700]">
             Ja possui cadastro? Faça login!

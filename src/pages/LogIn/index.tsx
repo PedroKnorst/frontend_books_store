@@ -26,7 +26,10 @@ const Login = () => {
 
   return (
     <AuthContainer>
-      <form onSubmit={handleSubmit(onSubmit)} className="bg-yellow-500 rounded-lg py-8 min-w-[400px] px-4 grid gap-6">
+      <form
+        onSubmit={handleSubmit(onSubmit)}
+        className="bg-yellow-500 rounded-lg py-8 sm:min-w-[400px] px-4 grid gap-6"
+      >
         <Input
           className="bg-yellow-500 text-white border-b-white"
           labelClassName="text-white"

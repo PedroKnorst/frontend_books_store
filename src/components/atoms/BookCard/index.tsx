@@ -12,7 +12,7 @@ const BookCard = ({ title, className, icon, imagePath }: Props) => {
   return (
     <div
       className={clsx(
-        'p-4 relative items-center bg-white flex flex-col gap-2 text-black rounded-lg shadow-xl',
+        'p-4 h-[350px] justify-center items-center bg-white flex flex-col gap-2 text-black rounded-lg shadow-xl',
         className,
       )}
     >

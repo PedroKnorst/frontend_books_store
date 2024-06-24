@@ -42,7 +42,7 @@ const Home = () => {
         <div className="self-end">
           <BooksPagination page={page} setPage={setPage} size={size} total={total} />
         </div>
-        <div className="grid grid-cols-4 gap-8">
+        <div className="grid xl:grid-cols-4 lg:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-6">
           {loading ? (
             <Loading />
           ) : books.length === 0 ? (

@@ -13,7 +13,7 @@ const MyCart = () => {
 
   return (
     <Container>
-      <div className="bg-yellow-500 p-10 grid grid-cols-4 gap-6 mt-4 rounded-lg">
+      <div className="bg-yellow-500 p-10 grid xl:grid-cols-4 lg:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-6 mt-4 rounded-lg">
         {loading ? (
           <Loading />
         ) : cart?.BooksCart?.length === 0 ? (

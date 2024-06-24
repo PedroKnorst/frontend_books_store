@@ -23,7 +23,7 @@ const ComicBooksPage = () => {
 
   const onGetComicBooks = () => {
     setLoading(true);
-    getMarvelComicBooksWithFilter({ page, size: 8, title, startYear })
+    getMarvelComicBooksWithFilter({ page, size: screen.width <= 1280 && screen.width >= 1024 ? 9 : 8, title, startYear })
       .then((res) => {
         setMarvelBooks(res.data.books);
         setTotal(res.data.total);
@@ -70,7 +70,7 @@ const ComicBooksPage = () => {
         <div className="self-end">
           <BooksPagination total={total} page={page} setPage={setPage} size={6} />
         </div>
-        <div className="grid grid-cols-4 gap-6">
+        <div className="grid xl:grid-cols-4 lg:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-6">
           {loading ? (
             <Loading className="col-span-full" />
           ) : marvelBooks.length === 0 ? (

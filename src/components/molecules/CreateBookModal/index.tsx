@@ -96,8 +96,8 @@ const CreateBookModal = ({ setOpenModal, updatedBook }: Props) => {
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="grid grid-cols-2 gap-4">
-      <div className="row-span-2 flex justify-center">
+    <form onSubmit={handleSubmit(onSubmit)} className="grid md:grid-cols-2 gap-4">
+      <div className="md:row-span-2 flex justify-center">
         <InputFile
           onlyView={updatedBook !== undefined}
           defaultValue={updatedBook?.Image.path}
@@ -113,7 +113,7 @@ const CreateBookModal = ({ setOpenModal, updatedBook }: Props) => {
       <Input className="bg-white" type="number" label="Estoque *" {...inputUseFormHandler('storage')} />
       <Select className="bg-white" options={categories} label="Categoria * " {...inputUseFormHandler('category')} />
       <Input className="bg-white" type="date" label="Data de lançamento" {...inputUseFormHandler('publishDate')} />
-      <Button className="col-span-2" loading={loading}>
+      <Button className="md:col-span-2" loading={loading}>
         {updatedBook ? 'Confirmar' : 'Cadastrar'}
       </Button>
     </form>
